@@ -173,6 +173,7 @@
   }
   .map-title{font-size:14px;font-weight:700;color:var(--teal-dark);margin-bottom:10px;letter-spacing:1px;}
   #realmap{height:340px;border:1px solid var(--line);border-radius:10px;margin:0 0 14px;}
+  #realmap .alt-mk span{display:block;width:18px;height:18px;border-radius:50%;background:#FFF4E2;border:2px solid #B98A2F;box-shadow:0 1px 3px rgba(0,0,0,.25);}
   .map-flex{display:grid;grid-template-columns:1.15fr 1fr;gap:14px;align-items:center;}
   .map-flex svg{width:100%;height:auto;display:block;}
   .map-legend{list-style:none;}
@@ -183,10 +184,12 @@
     display:inline-flex;align-items:center;justify-content:center;flex:none;
   }
   .mk.mk4{background:#FFFFFF;color:var(--ink-faint);border:1px dashed var(--ink-faint);}
+  .mk.mk7,.mk.mk8,.mk.mk9,.mk.mk10,.mk.mk11{background:#B98A2F;}
   .swatch{width:20px;height:4px;border-radius:2px;flex:none;}
   .swatch.l1{background:var(--teal-mid);}
   .swatch.l2{background:var(--gold);}
   .swatch.water{background:var(--rain);}
+  .swatch.alt{background:#FFF4E2;border:1.5px solid #B98A2F;height:2px;}
   .map-note{margin-top:10px;font-size:12px;color:var(--ink-faint);}
 
   @media (max-width:640px){
@@ -394,6 +397,17 @@
             <text x="210" y="304" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">3</text>
             <text x="292" y="280" font-size="11" fill="#8A938C" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">4</text>
 
+            <circle cx="64" cy="112" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
+            <text x="64" y="116" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">7</text>
+            <circle cx="724" cy="145" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
+            <text x="724" y="149" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">8</text>
+            <circle cx="551" cy="26" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
+            <text x="551" y="30" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">9</text>
+            <circle cx="330" cy="140" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
+            <text x="330" y="144" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">10</text>
+            <circle cx="325" cy="104" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
+            <text x="325" y="108" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">11</text>
+
             <text x="662" y="106" font-size="12" fill="#5A635C" font-family="Noto Sans SC,sans-serif">鸠江区</text>
           </svg>
           <ol class="map-legend">
@@ -403,12 +417,18 @@
             <li><span class="mk mk4">4</span>酒店（待定 · 镜湖区）</li>
             <li><span class="mk mk5">5</span>鸠兹广场 · 单轨 1 / 2 号线换乘</li>
             <li><span class="mk mk6">6</span>环城北路站（1 号线 → 古城）</li>
+            <li><span class="mk mk7">7</span>滨江公园 · 长江日落 / 轮渡约 10 元</li>
+            <li><span class="mk mk8">8</span>芜湖市博物馆 · 免费 · 雨天室内</li>
+            <li><span class="mk mk9">9</span>鸠兹古镇 · 徽派夜景 · 夜场约 40 元</li>
+            <li><span class="mk mk10">10</span>镜湖公园 + 鸠兹广场 · 免费</li>
+            <li><span class="mk mk11">11</span>赭山公园 + 广济寺 · 免费</li>
             <li class="leg-line"><span class="swatch l1"></span>单轨 1 号线（南北向）</li>
             <li class="leg-line"><span class="swatch l2"></span>单轨 2 号线（芜湖站→方特约 30–37 分钟）</li>
             <li class="leg-line"><span class="swatch water"></span>长江 / 青弋江</li>
+            <li class="leg-line"><span class="swatch alt"></span>备选玩法（时间富余再去）</li>
           </ol>
         </div>
-        <p class="map-note">上方为 OpenStreetMap 真实地图，可拖动缩放；示意：点位为相对位置示意，非精确比例；实时导航请用手机地图（高德 / 百度）。</p>
+        <p class="map-note">上方为高德地图真实地图，可拖动缩放，点标记看详情；示意：点位为相对位置示意，非精确比例；实时导航请用手机地图（高德 / 百度）。</p>
       </div>
       <table>
         <colgroup><col style="width:26%"><col style="width:74%"></colgroup>
@@ -632,16 +652,33 @@
     subdomains:'1234',
     attribution:'&copy; 高德地图'
   }).addTo(map);
-  var pts=[
+  var mainPts=[
     {c:[31.358399,118.468791],t:'方特东方神画',d:'单轨2号线「徽州路站」· 9/26 游玩'},
     {c:[31.347988,118.391536],t:'芜湖站',d:'K891 到 / K892 发'},
     {c:[31.320174,118.384175],t:'芜湖古城',d:'长虹门 · 青弋江畔 · 9/27 游玩'},
     {c:[31.324770,118.380744],t:'环城北路站',d:'单轨1号线 → 古城'}
   ];
+  var altPts=[
+    {c:[31.334750,118.358290],t:'滨江公园（备选）',d:'免费 · 长江日落约17–18点 · 中江塔+老海关钟楼出片 · 轮渡约10元傍晚顺路看江'},
+    {c:[31.348992,118.430859],t:'芜湖市博物馆（备选）',d:'免费 · 三层看通商史/人字洞文物 · 需官方预约 · 雨天室内备选'},
+    {c:[31.373479,118.444633],t:'鸠兹古镇（备选）',d:'徽派水乡夜景+演出 · 夜场约40元更划算 · 内部餐饮溢价'},
+    {c:[31.330333,118.372945],t:'镜湖公园 · 鸠兹广场（备选）',d:'免费 · 鸠兹雕塑地标 · 游船约30元/人 · 市中心碎片时间顺路买卡旺卡'},
+    {c:[31.337321,118.377230],t:'赭山公园 · 广济寺（备选）',d:'免费 · 登赭山看城景 · 广济寺周边算命大妈是套路'}
+  ];
   var latlngs=[];
-  for(var i=0;i<pts.length;i++){
-    latlngs.push(pts[i].c);
-    L.marker(pts[i].c).addTo(map).bindPopup('<strong>'+pts[i].t+'</strong><br>'+pts[i].d);
+  for(var i=0;i<mainPts.length;i++){
+    latlngs.push(mainPts[i].c);
+    L.marker(mainPts[i].c).addTo(map).bindPopup('<strong>'+mainPts[i].t+'</strong><br>'+mainPts[i].d);
+  }
+  var altIcon=L.divIcon({
+    className:'alt-mk',
+    html:'<span></span>',
+    iconSize:[18,18],
+    iconAnchor:[9,9]
+  });
+  for(var j=0;j<altPts.length;j++){
+    latlngs.push(altPts[j].c);
+    L.marker(altPts[j].c,{icon:altIcon}).addTo(map).bindPopup('<strong style="color:#B98A2F">'+altPts[j].t+'</strong><br>'+altPts[j].d);
   }
   if(latlngs.length){
     map.fitBounds(latlngs,{padding:[30,30]});
