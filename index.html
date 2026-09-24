@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>芜湖旅行计划 · 9月25–28日</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23173F3B'/%3E%3Cpath d='M8 46 L22 24 L31 36 L40 20 L56 46 Z' fill='%23E0B35A'/%3E%3Ccircle cx='46' cy='18' r='5' fill='%232F7D6B'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F7F5EE;
+    --ink:#2F3732;
+    --ink-soft:#5A635C;
+    --ink-faint:#8A938C;
+    --teal-dark:#173F3B;
+    --teal:#1D5A52;
+    --teal-mid:#2F7D6B;
+    --teal-soft:#E2ECE7;
+    --gold:#B98A2F;
+    --gold-soft:#F4EAD2;
+    --rain:#6E8CA6;
+    --rain-soft:#E7EDF2;
+    --line:#DADCD2;
+    --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px 72px;}
+  .serif{font-family:"Noto Serif SC","Songti SC","SimSun",serif;}
+
+  /* ===== Hero ===== */
+  header.hero{
+    padding:72px 0 44px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .hero-kicker{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;letter-spacing:2px;color:var(--teal-mid);
+    font-weight:500;
+  }
+  .hero-kicker::before{
+    content:"";width:22px;height:2px;background:var(--gold);display:inline-block;
+  }
+  h1{
+    font-size:clamp(34px,6vw,52px);
+    line-height:1.15;
+    margin:18px 0 10px;
+    letter-spacing:2px;
+  }
+  .hero-sub{
+    font-size:17px;color:var(--ink-soft);max-width:560px;
+  }
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;
+  }
+  .hero-meta span{
+    border:1px solid var(--line);background:var(--card);
+    padding:6px 14px;border-radius:999px;font-size:14px;color:var(--teal-dark);
+  }
+  .hero-meta span b{font-weight:700;}
+  .declaration{
+    margin-top:28px;padding:14px 18px;
+    background:var(--teal-dark);color:#F2EFE4;
+    border-radius:10px;
+    display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  }
+  .declaration .tag{
+    font-size:12px;letter-spacing:3px;color:#D9C98F;white-space:nowrap;
+  }
+  .declaration .txt{font-size:16px;}
+
+  /* ===== Section ===== */
+  section.block{padding:44px 0 8px;border-bottom:1px solid var(--line);}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;}
+  .sec-no{
+    font-family:"Noto Serif SC",serif;
+    font-size:14px;color:var(--gold);letter-spacing:1px;white-space:nowrap;
+  }
+  .sec-title{font-size:26px;letter-spacing:1px;}
+  .sec-note{font-size:13px;color:var(--ink-faint);margin-left:auto;}
+
+  h3.sub{font-size:17px;margin:22px 0 10px;color:var(--teal-dark);}
+  p.body{color:var(--ink-soft);}
+  .muted{color:var(--ink-faint);font-size:13px;}
+  .small{font-size:14px;}
+
+  /* ===== 总览卡 ===== */
+  .overview-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+  }
+  .ov-card{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:14px 14px 12px;
+  }
+  .ov-day{font-size:13px;color:var(--ink-faint);display:flex;justify-content:space-between;}
+  .ov-weather{
+    font-size:15px;font-weight:700;margin:6px 0 2px;display:flex;align-items:center;gap:6px;
+  }
+  .ov-temp{font-size:13px;color:var(--ink-soft);}
+  .ov-flag{margin-top:8px;font-size:12px;line-height:1.5;border-radius:6px;padding:4px 8px;}
+  .flag-rain{background:var(--rain-soft);color:#3D5B78;}
+  .flag-fine{background:var(--teal-soft);color:var(--teal);}
+  .alert-bar{
+    margin-top:16px;background:var(--gold-soft);border:1px solid #E4D3A2;
+    border-radius:10px;padding:12px 16px;font-size:15px;color:#6B5220;
+  }
+  .alert-bar b{color:#8A6420;}
+
+  /* ===== 时间轴 ===== */
+  .timeline{display:grid;grid-template-columns:96px 28px 1fr;column-gap:8px;}
+  .tl-time{padding:26px 0 30px;text-align:right;}
+  .tl-date{font-family:"Noto Serif SC",serif;font-size:18px;font-weight:700;color:var(--teal-dark);}
+  .tl-dow{font-size:12px;color:var(--ink-faint);margin-top:2px;}
+  .tl-rail{display:flex;justify-content:center;position:relative;}
+  .tl-dot{
+    margin-top:28px;width:12px;height:12px;border-radius:50%;
+    background:var(--teal-mid);border:3px solid var(--paper);
+    box-shadow:0 0 0 2px var(--teal-mid);
+  }
+  .tl-dot.gold{background:var(--gold);box-shadow:0 0 0 2px var(--gold);}
+  .tl-rail::before{
+    content:"";position:absolute;left:50%;top:34px;bottom:0;
+    width:2px;transform:translateX(-50%);background:var(--line);
+  }
+  .tl-rail.last::before{display:none;}
+  .tl-body{padding:22px 0 30px;}
+  .tl-card{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px 14px;
+  }
+  .tl-card h4{font-size:18px;margin-bottom:6px;}
+  .tl-card h4 .tag{
+    display:inline-block;font-size:12px;font-weight:500;vertical-align:middle;
+    margin-left:8px;padding:2px 9px;border-radius:999px;
+    background:var(--teal-soft);color:var(--teal);
+  }
+  .tl-card h4 .tag.warn{background:var(--gold-soft);color:#8A6420;}
+  .tl-card h4 .tag.rain{background:var(--rain-soft);color:#3D5B78;}
+  .tl-card ul{list-style:none;margin-top:6px;}
+  .tl-card li{
+    position:relative;padding-left:18px;margin:5px 0;
+    font-size:15px;color:var(--ink-soft);
+  }
+  .tl-card li::before{
+    content:"";position:absolute;left:2px;top:11px;
+    width:6px;height:6px;border-radius:50%;background:var(--teal-mid);
+  }
+  .tl-card li b{color:var(--ink);font-weight:700;}
+  .tl-card .alt{
+    margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);
+    font-size:13.5px;color:var(--ink-faint);
+  }
+  .tl-card .alt b{color:var(--ink-soft);}
+
+  /* ===== 表格 ===== */
+  table.tbl{
+    width:100%;border-collapse:collapse;table-layout:fixed;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    font-size:14.5px;
+  }
+  table.tbl colgroup col:first-child{width:22%;}
+  table.tbl colgroup col:nth-child(2){width:26%;}
+  table.tbl colgroup col:nth-child(3){width:52%;}
+  table.tbl th{
+    text-align:left;background:var(--teal-dark);color:#F2EFE4;
+    padding:10px 14px;font-weight:500;letter-spacing:1px;font-size:13.5px;
+  }
+  table.tbl th:first-child{border-radius:10px 0 0 0;}
+  table.tbl th:last-child{border-radius:0 10px 0 0;}
+  table.tbl td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top;}
+  table.tbl tr:nth-child(even) td{background:#F3F2EA;}
+  .best{color:var(--teal);font-weight:700;}
+  .price{font-variant-numeric:tabular-nums;}
+
+  /* ===== 双栏对比 ===== */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .duo-card{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px;position:relative;
+  }
+  .duo-card.rec{border:2px solid var(--teal-mid);}
+  .duo-badge{
+    position:absolute;top:-11px;right:14px;
+    background:var(--teal-mid);color:#fff;font-size:12px;
+    padding:3px 12px;border-radius:999px;letter-spacing:1px;
+  }
+  .duo-card h4{font-size:17px;margin-bottom:4px;}
+  .duo-card .p{color:var(--gold);font-weight:700;font-size:14px;margin-bottom:8px;}
+  .duo-card ul{list-style:none;}
+  .duo-card li{
+    position:relative;padding-left:16px;margin:4px 0;
+    font-size:14px;color:var(--ink-soft);
+  }
+  .duo-card li::before{
+    content:"";position:absolute;left:1px;top:10px;
+    width:5px;height:5px;border-radius:50%;background:var(--teal-mid);
+  }
+  .duo-card li.off::before{background:var(--ink-faint);}
+
+  /* ===== 预算条 ===== */
+  .budget-row{display:grid;grid-template-columns:118px 1fr 96px;gap:12px;align-items:center;margin:12px 0;}
+  .budget-name{font-size:14.5px;color:var(--teal-dark);font-weight:700;}
+  .budget-bar{
+    height:16px;background:#E6E5DB;border-radius:999px;overflow:hidden;position:relative;
+  }
+  .budget-fill{
+    height:100%;border-radius:999px;
+    background:linear-gradient(90deg,var(--teal-mid),var(--teal-dark));
+    min-width:4px;
+  }
+  .budget-fill.eco{background:linear-gradient(90deg,#9FB8AD,#6F9489);}
+  .budget-fill.comfy{background:linear-gradient(90deg,#C9A84F,#B98A2F);}
+  .budget-price{font-size:14px;text-align:right;color:var(--ink);font-weight:700;}
+  .budget-price small{display:block;font-size:11.5px;color:var(--ink-faint);font-weight:400;}
+
+  /* ===== 列表格 ===== */
+  ul.chk{list-style:none;}
+  ul.chk li{
+    position:relative;padding-left:24px;margin:7px 0;color:var(--ink-soft);
+  }
+  ul.chk li::before{
+    content:"";position:absolute;left:0;top:7px;
+    width:14px;height:14px;border:1.5px solid var(--teal-mid);border-radius:4px;
+    background:var(--teal-soft);
+  }
+  ul.dot{list-style:none;}
+  ul.dot li{position:relative;padding-left:16px;margin:5px 0;color:var(--ink-soft);}
+  ul.dot li::before{
+    content:"";position:absolute;left:1px;top:11px;
+    width:5px;height:5px;border-radius:50%;background:var(--gold);
+  }
+
+  /* ===== 待确认 ===== */
+  .todo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .todo{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;display:flex;gap:10px;align-items:flex-start;
+  }
+  .todo .box{
+    flex:0 0 18px;height:18px;border:1.5px solid var(--teal-mid);
+    border-radius:5px;margin-top:3px;
+  }
+  .todo .q{font-size:14.5px;color:var(--ink);}
+  .todo .rec{font-size:12.5px;color:var(--ink-faint);margin-top:2px;}
+
+  footer{
+    padding:28px 0 0;font-size:12.5px;color:var(--ink-faint);
+    line-height:1.8;
+  }
+
+  @media (max-width:640px){
+    .overview-grid{grid-template-columns:1fr 1fr;}
+    .duo{grid-template-columns:1fr;}
+    .todo-grid{grid-template-columns:1fr;}
+    .timeline{grid-template-columns:72px 22px 1fr;column-gap:6px;}
+    .tl-date{font-size:16px;}
+    .budget-row{grid-template-columns:96px 1fr 84px;gap:8px;}
+    h1{font-size:34px;}
+    section.block{padding:36px 0 6px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-kicker">九月末 · 皖南 · 江城</div>
+    <h1 class="serif">芜湖旅行计划</h1>
+    <p class="hero-sub">两个人，四天，一趟说走就走的搭子出游。方特玩嗨、古城逛慢，晴雨都有方案，出发前先把要定的定下来。</p>
+    <div class="hero-meta">
+      <span><b>9.25 – 9.28</b> 四天</span>
+      <span>聊城 → 芜湖 → 菏泽</span>
+      <span>方特 · 芜湖古城</span>
+      <span>2 人</span>
+    </div>
+    <div class="declaration">
+      <span class="tag">出行宣言</span>
+      <span class="txt">多点沟通，注意安全 —— 不赶路、不硬扛，随时商量着来。</span>
+    </div>
+  </header>
+
+  <!-- ===== 01 一目了然 ===== -->
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-no">01</span>
+      <h2 class="sec-title serif">一目了然</h2>
+      <span class="sec-note">天气为 9 月 24 日预报，出发前再核对</span>
+    </div>
+    <div class="overview-grid">
+      <div class="ov-card">
+        <div class="ov-day">9/25 周五 <span>出发夜</span></div>
+        <div class="ov-weather">多云 <span class="muted">23–32℃</span></div>
+        <div class="ov-flag flag-fine">卧铺夜车出发</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-day">9/26 周六 <span>方特</span></div>
+        <div class="ov-weather">中雨 <span class="muted">22–27℃</span></div>
+        <div class="ov-flag flag-rain">选室内项目多的园</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-day">9/27 周日 <span>古城</span></div>
+        <div class="ov-weather">小雨 <span class="muted">23–30℃</span></div>
+        <div class="ov-flag flag-rain">带伞，廊檐+展馆为主</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-day">9/28 周一 <span>返程</span></div>
+        <div class="ov-weather">小雨 <span class="muted">22–28℃</span></div>
+        <div class="ov-flag flag-rain">凌晨 K892，早上到菏泽</div>
+      </div>
+    </div>
+    <div class="alert-bar">
+      26 日预报<b>中雨</b>，是本趟唯一需要预案的天气：方特优先选<b>东方神画</b>（室内项目多），雨势过大就把古城与方特对调（详见 06 天气预案）。
+    </div>
+  </section>
+
+  <!-- ===== 02 行程 ===== -->
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-no">02</span>
+      <h2 class="sec-title serif">四天行程</h2>
+      <span class="sec-note">车票已定 · 订房选园待定</span>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-time"><div class="tl-date">9/25</div><div class="tl-dow">周五</div></div>
+      <div class="tl-rail"><div class="tl-dot gold"></div></div>
+      <div class="tl-body">
+        <div class="tl-card">
+          <h4>出发夜 <span class="tag">夜车 · 已购</span></h4>
+          <ul>
+            <li><b>22:25</b> K891 聊城站发车，睡一晚，次日 <b>08:14</b> 到芜湖</li>
+            <li>车票已支付；硬座约 105 元 / 硬卧约 184 元，26 日全天可玩</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-time"><div class="tl-date">9/26</div><div class="tl-dow">周六</div></div>
+      <div class="tl-rail"><div class="tl-dot"></div></div>
+      <div class="tl-body">
+        <div class="tl-card">
+          <h4>方特日 · 东方神画 <span class="tag rain">中雨</span></h4>
+          <ul>
+            <li><b>08:14</b> 到芜湖站 → 寄存行李（车站寄存柜 / 酒店前台）→ 吃碗芜湖早点（渣肉蒸饭、锅贴）</li>
+            <li><b>09:00–09:30</b> 地铁 2 号线（约 37 分钟）或打车（约 20 分钟）到方特，周末约 9:00 开园、16:30 停止检票</li>
+            <li><b>上午 · 室内主打</b>：女娲补天（4D 轨道车）→ 牛郎织女（球幕躺看星空）→ 九州神韵（巨幕），雨天不耽误</li>
+            <li><b>下午</b>：烈焰风云、雷峰塔、孟姜女演出；雨停加冲木质过山车<b>丛林飞龙</b></li>
+            <li><b>傍晚</b>：非遗小镇拍照，约 17:30 出园（周末约 18:00 闭园）</li>
+            <li><b>晚上</b>：入住酒店——本次<b>只订 26 号这一晚</b>（镜湖区 / 芜湖站附近），吃顿本地菜</li>
+          </ul>
+          <div class="alt"><b>雨天提示</b>：入园先看方特 App 排队时长，热门项目优先；若雨势过大与古城对调——26 日下午古城室内展馆 + 美食，27 日全天方特</div>
+        </div>
+      </div>
+
+      <div class="tl-time"><div class="tl-date">9/27</div><div class="tl-dow">周日</div></div>
+      <div class="tl-rail"><div class="tl-dot"></div></div>
+      <div class="tl-body">
+        <div class="tl-card">
+          <h4>古城日 <span class="tag warn">小雨</span></h4>
+          <ul>
+            <li><b>上午</b> 睡到自然醒，退房寄存行李（27 号不再住店），市区早午餐（四季春小笼汤包 / 耿福兴虾籽面）</li>
+            <li><b>14:00</b> 从<b>长虹门（南门）</b>进古城：大成殿（省文保）→ 花街 → 南正街 → 县衙谯楼（联票 50 元可选）</li>
+            <li><b>15:30–17:30</b> 街巷拍照：砖墙文字墙、「在芜湖」葫芦装置、铁画非遗小店（青石板路注意防滑）</li>
+            <li><b>17:30</b> 晚餐：红皮鸭子、臭鳜鱼、赤豆酒酿</li>
+            <li><b>19:00</b> 灯笼亮起拍夜景；<b>19:50</b> 回长虹门登城墙，俯瞰青弋江与古城夜景</li>
+            <li><b>21:00 前</b> 离场取行李 → 芜湖站，<b>23:00 前</b>到站候车（00:01 发车）</li>
+          </ul>
+          <div class="alt"><b>本晚住车上</b>：K892 芜湖 00:01 → 菏泽 08:39，车票已购，睡一觉到家</div>
+        </div>
+      </div>
+
+      <div class="tl-time"><div class="tl-date">9/28</div><div class="tl-dow">周一</div></div>
+      <div class="tl-rail last"><div class="tl-dot gold"></div></div>
+      <div class="tl-body">
+        <div class="tl-card">
+          <h4>到菏泽 <span class="tag">夜车 · 已购</span></h4>
+          <ul>
+            <li><b>00:01</b> K892 芜湖站发车（提前 30 分钟检票，建议 23:00 前到站）</li>
+            <li><b>08:39</b> 到<b>菏泽</b>，全程约 8 小时 40 分，睡一觉到家</li>
+            <li>硬座约 86 元 / 硬卧约 152–161 元（车票已支付）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 03 交通 ===== -->
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-no">03</span>
+      <h2 class="sec-title serif">交通怎么走</h2>
+      <span class="sec-note">车票已购 · 时刻以 12306 订单为准</span>
+    </div>
+
+    <h3 class="sub">已购车票</h3>
+    <table class="tbl">
+      <colgroup><col><col><col></colgroup>
+      <tr><th>车次</th><th>行程</th><th>说明</th></tr>
+      <tr>
+        <td><span class="best">K891 去程</span></td>
+        <td class="price">9/25 22:25 聊城 → 9/26 08:14 芜湖</td>
+        <td>硬座约 105 元、硬卧约 184 元；睡一觉到站，26 日全天可玩</td>
+      </tr>
+      <tr>
+        <td><span class="best">K892 返程</span></td>
+        <td class="price">9/28 00:01 芜湖 → 08:39 菏泽</td>
+        <td>硬座约 86 元、硬卧约 152–161 元；27 日晚 23:00 前到站候车</td>
+      </tr>
+    </table>
+
+    <h3 class="sub">芜湖市内</h3>
+    <ul class="dot">
+      <li><b>火车站 → 方特</b>：轨道交通 2 号线「方特·徽州路站」约 37 分钟 2 元；打车 15–20 分钟约 20–30 元（带行李更方便）</li>
+      <li><b>火车站 → 古城</b>：地铁 1 号线「环城北路站」，步行约 5 分钟；打车约 10 分钟</li>
+      <li><b>古城 ↔ 住处</b>：镜湖区住宿的话步行即可</li>
+      <li><b>住处 / 古城 → 芜湖站</b>：打车约 10–15 分钟；27 日晚 21:00 离开古城后留足 1 小时</li>
+    </ul>
+  </section>
+
+  <!-- ===== 04 方特选园 ===== -->
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-no">04</span>
+      <h2 class="sec-title serif">方特选哪个园</h2>
+      <span class="sec-note">26 日为周六，入园 9:30 左右</span>
+    </div>
+    <div class="duo">
+      <div class="duo-card rec">
+        <span class="duo-badge">推荐主案</span>
+        <h4>东方神画</h4>
+        <div class="p">成人日场约 239–280 元</div>
+        <ul>
+          <li>国风主题，室内项目密集，<b>雨天最友好</b></li>
+          <li>必玩：女娲补天、九州神韵、烈焰风云、孟姜女</li>
+          <li>刺激担当：木质过山车「丛林飞龙」</li>
+          <li>适合两人边逛边拍，不赶场</li>
+        </ul>
+      </div>
+      <div class="duo-card">
+        <h4>梦幻王国</h4>
+        <div class="p">成人日场约 239–260 元</div>
+        <ul>
+          <li>童话魔法风，演出多：魔法城堡、秦陵历险、猴王</li>
+          <li>周末晚间城堡<b>烟花秀</b>是加分项（雨天可能取消）</li>
+          <li class="off">偏亲子向，刺激项目较少</li>
+        </ul>
+      </div>
+    </div>
+    <p class="body small" style="margin-top:14px;">
+      小提示：提前 1–2 天在官网 / 平台购票常有优惠价（约 239 元起）；入园后下载方特 App 看排队时长。两园门票分开，一天玩透一个园更划算。
+    </p>
+  </section>
+
+  <!-- ===== 05 古城 ===== -->
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-no">05</span>
+      <h2 class="sec-title serif">古城怎么逛</h2>
+      <span class="sec-note">镜湖区环城北路 · 青弋江畔</span>
+    </div>
+    <table class="tbl">
+      <colgroup><col><col><col></colgroup>
+      <tr><th>项目</th><th>信息</th><th>提示</th></tr>
+      <tr>
+        <td>门票</td>
+        <td>街区免费；县衙 + 谯楼联票 50 元（可选）</td>
+        <td>联票含升堂表演，可按兴趣买</td>
+      </tr>
+      <tr>
+        <td>时间</td>
+        <td>街区 24 小时；商铺 10:00–22:00</td>
+        <td><b>18:30 亮灯</b>，夜景氛围最佳</td>
+      </tr>
+      <tr>
+        <td>玩法</td>
+        <td>建议 14:00 入园，玩 3–5 小时</td>
+        <td>白天逛花街 → 黄昏日落 → 灯笼夜景一气呵成</td>
+      </tr>
+    </table>
+    <h3 class="sub">本地味道（人均参考）</h3>
+    <ul class="dot">
+      <li>耿福兴 <b>虾籽面</b> 约 18 元/碗 · 四季春 <b>小笼汤包</b> 约 20 元/笼</li>
+      <li>古城门口 <b>红皮鸭子</b> 约 25 元/半只 · <b>赤豆酒酿</b>、<b>梅花糕</b>、<b>渣肉蒸饭</b> 8–25 元</li>
+      <li>想正式吃一顿：和府园林徽菜，红烧臭鳜鱼，人均 60–80 元（本地菜偏甜口）</li>
+    </ul>
+  </section>
+
+  <!-- ===== 06 天气预案 ===== -->
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-no">06</span>
+      <h2 class="sec-title serif">天气预案</h2>
+      <span class="sec-note">预报为 9/24 数据</span>
+    </div>
+    <ul class="chk">
+      <li><b>9/26 中雨（22–27℃）</b>：主案东方神画以室内项目为主；若雨势过大，26 日下午先逛古城室内 + 美食，27 日全天方特——两个方案都不必退票，门票按日期单购即可</li>
+      <li><b>9/27 小雨（23–30℃）</b>：古城以街巷廊檐和室内展馆、店铺为主，备伞即可；夜景灯亮后雨小更好拍</li>
+      <li><b>9/28 小雨（22–28℃）</b>：凌晨 K892 返程，28 日上午到菏泽，白天在家休整</li>
+      <li><b>降温备衣</b>：9 月底早晚温差大，短袖 + 薄外套 + 一件防雨外套，够用</li>
+    </ul>
+  </section>
+
+  <!-- ===== 07 预算 ===== -->
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-no">07</span>
+      <h2 class="sec-title serif">预算（人均估算）</h2>
+      <span class="sec-note">不含购物 · 含往返交通/门票/住宿 2 晚/餐饮/市内交通</span>
+    </div>
+    <div class="budget-row">
+      <div class="budget-name">已定 · 全程硬座</div>
+      <div class="budget-bar"><div class="budget-fill" style="width:86%"></div></div>
+      <div class="budget-price">约 930 元<small>去 105 + 回 86</small></div>
+    </div>
+    <p class="body small" style="margin-top:12px;">
+      口径：大交通（K891 硬座 105 元 + K892 硬座 86 元）、方特东方神画门票约 280 元（网购优惠价约 239 元）、住宿 1 晚人均约 100 元、餐饮 3 天人均约 300 元、市内交通约 60 元。古城联票 50 元另计（可选）。
+    </p>
+  </section>
+
+  <!-- ===== 08 约定 ===== -->
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-no">08</span>
+      <h2 class="sec-title serif">安全与沟通约定</h2>
+    </div>
+    <div class="duo">
+      <div class="duo-card">
+        <h4>多点沟通</h4>
+        <ul>
+          <li>想换行程、累了、饿了、想拍照，直接说，不憋着</li>
+          <li>开销先说好 AA 或轮流买单，避免算账尴尬</li>
+          <li>每天睡前对一下第二天安排，留 10 分钟商量</li>
+        </ul>
+      </div>
+      <div class="duo-card">
+        <h4>注意安全</h4>
+        <ul>
+          <li>贵重物品随身，寄存行李留好凭证和密码</li>
+          <li>雨天防滑，夜游古城结伴、不走僻静小巷</li>
+          <li>手机保持畅通，走散约好集合点（如古城入口牌坊）</li>
+          <li>方特项目量力而行，晕眩恐高提前说，不逞强</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 09 打包 ===== -->
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-no">09</span>
+      <h2 class="sec-title serif">打包清单</h2>
+    </div>
+    <div class="duo">
+      <div class="duo-card">
+        <h4>证件与票</h4>
+        <ul>
+          <li>身份证（无学生证，门票无折扣）</li>
+          <li>已购车票（K891 / K892）、方特门票（网购电子票截图）</li>
+        </ul>
+      </div>
+      <div class="duo-card">
+        <h4>雨天装备</h4>
+        <ul>
+          <li>折叠伞每人一把</li>
+          <li>轻便雨衣（方特排队、室外项目比伞方便）</li>
+          <li>防水袋装手机证件</li>
+        </ul>
+      </div>
+      <div class="duo-card">
+        <h4>衣物</h4>
+        <ul>
+          <li>短袖 2–3 件 + 薄外套 + 防雨外套</li>
+          <li>舒适平底鞋（古城石板路 + 方特一天两万步）</li>
+        </ul>
+      </div>
+      <div class="duo-card">
+        <h4>其他</h4>
+        <ul>
+          <li>充电宝、水杯、纸巾</li>
+          <li>常用药：肠胃、晕车、创可贴</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 10 出发前确认 ===== -->
+  <section class="block" style="border-bottom:none;">
+    <div class="sec-head">
+      <span class="sec-no">10</span>
+      <h2 class="sec-title serif">车票已定，还剩这几件事</h2>
+    </div>
+    <div class="todo-grid">
+      <div class="todo"><span class="box"></span><div><div class="q">车票已定：K891 去（25 日 22:25）+ K892 回（28 日 00:01 → 菏泽 08:39）</div><div class="rec">返程夜车，27 日晚 23:00 前到芜湖站</div></div></div>
+      <div class="todo"><span class="box"></span><div><div class="q">住宿已定：只住 26 号 1 晚；非学生、全程硬座</div><div class="rec">位置待选：镜湖区（古城旁）还是芜湖站附近？</div></div></div>
+      <div class="todo"><span class="box"></span><div><div class="q">方特选哪个园？</div><div class="rec">推荐东方神画（雨天友好），约 239–280 元/人</div></div></div>
+      <div class="todo"><span class="box"></span><div><div class="q">预算已定：全程硬座约 930 元/人</div><div class="rec">古城联票 50 元另计（可选）</div></div></div>
+    </div>
+  </section>
+
+  <footer>
+    数据截至 2026-09-24：K891、K892 车票已购，以 12306 订单为准；方特门票价格与活动以官方购票页为准；天气以出发前一日预报为准。本页为出行参考，请出发前与同伴逐项确认。
+  </footer>
+
+</div>
+</body>
+</html>
