@@ -54,12 +54,52 @@
     line-height:1.2;margin:16px 0 10px;letter-spacing:2px;
   }
   .hero-sub{font-size:16px;color:var(--ink-soft);max-width:600px;}
-  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
-  .hero-meta span{
-    border:1px solid var(--line);background:var(--card);
-    padding:6px 14px;border-radius:999px;font-size:14px;color:var(--teal-dark);
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;}
+  .hero-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 22px;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;
+    font-family:inherit;
+    border:1.5px solid transparent;text-decoration:none;
+    transition:box-shadow .12s ease,transform .12s ease,border-color .12s ease;
   }
-  .hero-meta span b{font-weight:700;}
+  .hero-btn:active{transform:translateY(1px);}
+  .hero-btn svg{width:16px;height:16px;flex:none;}
+  .btn-guide{background:var(--teal-dark);color:#fff;box-shadow:0 2px 10px rgba(24,63,59,.22);}
+  .btn-guide:hover{box-shadow:0 4px 16px rgba(24,63,59,.32);}
+  .btn-decide{background:#fff;color:var(--teal-dark);border-color:#B7C3BC;}
+  .btn-decide:hover{border-color:var(--teal-dark);}
+
+  /* ===== 页内视图切换 ===== */
+  .view{display:none;}
+  .view.active{display:block;}
+  .gview{max-width:880px;margin:0 auto;padding:0 20px 72px;}
+  .g-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:28px 0 6px;flex-wrap:wrap;}
+  .g-kicker{font-size:13px;letter-spacing:2px;color:var(--teal-mid);}
+  .g-back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--teal-dark);background:#fff;border:1.5px solid var(--line);padding:8px 14px;border-radius:999px;cursor:pointer;font-family:inherit;}
+  .g-back:hover{border-color:var(--teal-dark);}
+  .g-back svg{width:15px;height:15px;}
+  .g-title{font-size:clamp(30px,5vw,42px);line-height:1.2;margin:14px 0 6px;letter-spacing:1px;}
+  .g-sub{font-size:15px;color:var(--ink-soft);margin-bottom:8px;}
+  .gview h2{font-size:22px;color:var(--teal-dark);margin:34px 0 10px;padding-left:12px;border-left:3px solid var(--gold);}
+  .gview p{font-size:15px;color:var(--ink);margin-bottom:12px;}
+  .gview table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 18px;table-layout:fixed;}
+  .gview th{background:var(--teal-soft);color:var(--teal-dark);font-weight:700;text-align:left;padding:9px 10px;border:1px solid var(--line);}
+  .gview td{padding:8px 10px;border:1px solid var(--line);vertical-align:top;word-break:break-word;}
+  .gview blockquote{border-left:3px solid var(--gold);background:var(--gold-soft);padding:10px 14px;margin:14px 0;font-size:14px;color:#6B5A2E;border-radius:0 8px 8px 0;}
+  .tip-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 8px;}
+  .tip{padding:12px 14px;border-radius:10px;font-size:14px;line-height:1.7;}
+  .tip-blue{background:#E7EDF2;border:1px solid #C9DAE4;color:#2C4A5E;}
+  .tip-green{background:#E2EFE7;border:1px solid #C4DAD0;color:#235446;}
+  .tip-yellow{background:#F7EED8;border:1px solid #E7D6AC;color:#6B5A2E;}
+  .chk{display:flex;flex-direction:column;gap:10px;margin:12px 0 18px;}
+  .chk label{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.6;}
+  .chk input{margin-top:4px;accent-color:var(--teal-dark);width:15px;height:15px;flex:none;}
+  .g-bottom{margin-top:26px;}
+  @media (max-width:720px){
+    .tip-grid{grid-template-columns:1fr;}
+    .gview table{font-size:13px;}
+  }
 
   /* ===== Section ===== */
   section.block{padding:40px 0 6px;border-bottom:1px solid var(--line);}
@@ -250,51 +290,103 @@
 </head>
 <body>
 
+<div id="view-main" class="view active">
 <header class="hero">
   <div class="wrap">
     <div class="hero-kicker">9月25日 – 28日 · 芜湖短途</div>
     <h1 class="serif">芜湖旅行计划</h1>
-    <p class="hero-sub">两天玩透：周六博物馆 + 古城（雨天友好），周日方特全天（小雨 + 夜场到 21:00）；夜车往返，经济优先。车票、酒店、方特都已敲定，照计划走就行。</p>
-    <div class="hero-meta">
-      <span><b>K891</b> 去 · 25日22:25</span>
-      <span><b>K892</b> 回 · 28日00:01 → 菏泽08:39</span>
-      <span>全程<b>硬座</b> · 无学生票</span>
-      <span>住宿<b>宜盟·步行街店 105.6元</b></span>
-      <span>合计<b>约1095–1220元/两人</b></span>
+    <div class="hero-actions">
+      <button type="button" class="hero-btn btn-guide" id="btnGuide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M5 19h14"/></svg>
+        打开全新攻略 ↗
+      </button>
+      <button type="button" class="hero-btn btn-decide" id="btnDecide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>
+        出发前要定的 ↗
+      </button>
     </div>
   </div>
 </header>
 
 <main class="wrap">
 
-  <!-- ===== 01 出发前要定的 ===== -->
-  <section class="block" id="decide">
+  <!-- ===== 02 市区地图 ===== -->
+  <section class="block" id="citymap">
     <div class="sec-head">
       <span class="sec-no">01</span>
-      <h2 class="sec-title serif">出发前要定的</h2>
-      <span class="sec-note">住宿、方特都已敲定，终版</span>
+      <h2 class="sec-title serif">市区地图</h2>
+      <span class="sec-note">真实地图可拖动缩放（需联网）· 下方示意地图标注全部点位</span>
     </div>
-    <div class="decide-grid">
-      <div class="decide-card" style="border-color:#C4DAD0;box-shadow:0 2px 0 rgba(31,90,82,.12);">
-        <div class="decide-head">住宿（已订） <span class="flag" style="background:var(--teal-soft);color:var(--teal-dark);">已定</span></div>
-        <div class="decide-opts"><b>宜盟酒店（步行街店）</b> · 悬浮双人间（双床）· <b>105.6 元/晚</b></div>
-        <div class="decide-rec">镜湖区长江中路吉园小区 1 号商铺 · 9/26 入住、9/27 退 · 26 日 18:00 前可免费取消 · 已享延迟退房（美团已支付）</div>
+    <div class="map-wrap">
+      <div class="map-title">市区地图 · 可拖动缩放（需联网）</div>
+      <div id="realmap"></div>
+      <div class="map-title">点位速览 · 示意</div>
+      <div class="map-flex">
+        <svg viewBox="0 0 800 430" role="img" aria-label="芜湖市区示意地图：长江在城西，青弋江穿城，方特在东北，古城在青弋江畔">
+          <rect x="0" y="0" width="60" height="430" fill="#DCE6EF" stroke="#6E8CA6" stroke-width="1.5"/>
+          <text x="30" y="196" font-size="14" fill="#8AA3B8" text-anchor="middle" font-family="Noto Sans SC,sans-serif">
+            <tspan x="30" dy="0">长</tspan><tspan x="30" dy="17">江</tspan>
+          </text>
+          <rect x="60" y="320" width="740" height="80" fill="#DCE6EF" stroke="#6E8CA6" stroke-width="1.5"/>
+          <text x="208" y="353" font-size="13" fill="#8AA3B8" font-family="Noto Sans SC,sans-serif">青弋江</text>
+
+          <path d="M 265 14 L 305 122 L 255 250 L 240 405" fill="none" stroke="#2F7D6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 305 122 L 545 148 L 655 60" fill="none" stroke="#B98A2F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <circle cx="282" cy="62" r="4" fill="#2F7D6B"/>
+          <circle cx="270" cy="188" r="4" fill="#2F7D6B"/>
+          <circle cx="246" cy="330" r="4" fill="#2F7D6B"/>
+          <circle cx="430" cy="138" r="4" fill="#B98A2F"/>
+
+          <circle cx="305" cy="122" r="14" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
+          <circle cx="545" cy="148" r="13" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
+          <circle cx="655" cy="60" r="13" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
+          <circle cx="255" cy="250" r="13" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
+          <circle cx="210" cy="300" r="13" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
+          <circle cx="88" cy="124" r="13" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
+          <text x="305" y="126" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">5</text>
+          <text x="545" y="152" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">2</text>
+          <text x="655" y="64" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">1</text>
+          <text x="255" y="254" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">6</text>
+          <text x="210" y="304" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">3</text>
+          <text x="88" y="128" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">4</text>
+
+          <circle cx="64" cy="112" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
+          <text x="64" y="116" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">7</text>
+          <circle cx="724" cy="145" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
+          <text x="724" y="149" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">8</text>
+          <circle cx="551" cy="26" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
+          <text x="551" y="30" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">9</text>
+          <circle cx="330" cy="140" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
+          <text x="330" y="144" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">10</text>
+          <circle cx="325" cy="104" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
+          <text x="325" y="108" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">11</text>
+
+          <text x="662" y="106" font-size="12" fill="#5A635C" font-family="Noto Sans SC,sans-serif">鸠江区</text>
+        </svg>
+        <ol class="map-legend">
+          <li><span class="mk mk1">1</span>方特东方神画（鸠江区）· 单轨 2 号线「徽州路站」</li>
+          <li><span class="mk mk2">2</span>芜湖站（镜湖区）· K891 到 / K892 发</li>
+          <li><span class="mk mk3">3</span>芜湖古城（青弋江畔）· 长虹门</li>
+          <li><span class="mk">4</span>宜盟酒店（步行街店）· 长江中路 · 9/26 入住</li>
+          <li><span class="mk mk5">5</span>鸠兹广场 · 单轨 1 / 2 号线换乘</li>
+          <li><span class="mk mk6">6</span>环城北路站（1 号线 → 古城）</li>
+          <li><span class="mk mk7">7</span>滨江公园 · 长江日落 / 轮渡约 10 元</li>
+          <li><span class="mk mk8">8</span>芜湖市博物馆 · 免费 · 雨天室内</li>
+          <li><span class="mk mk9">9</span>鸠兹古镇 · 徽派夜景 · 夜场约 40 元</li>
+          <li><span class="mk mk10">10</span>镜湖公园 + 鸠兹广场 · 免费</li>
+          <li><span class="mk mk11">11</span>赭山公园 + 广济寺 · 免费</li>
+          <li class="leg-line"><span class="swatch l1"></span>单轨 1 号线（南北向）</li>
+          <li class="leg-line"><span class="swatch l2"></span>单轨 2 号线（芜湖站→方特约 30–37 分钟）</li>
+          <li class="leg-line"><span class="swatch water"></span>长江 / 青弋江</li>
+          <li class="leg-line"><span class="swatch alt"></span>备选玩法（时间富余再去）</li>
+        </ol>
       </div>
-      <div class="decide-card" style="border-color:#C4DAD0;box-shadow:0 2px 0 rgba(31,90,82,.12);">
-        <div class="decide-head">方特选园（已定） <span class="flag" style="background:var(--teal-soft);color:var(--teal-dark);">已定</span></div>
-        <div class="decide-opts"><b>东方神画</b>（国风 · 室内项目多，雨天友好）</div>
-        <div class="decide-rec">9/27 全天：小雨 + 营业至 21:00 有夜场；室内主打（女娲补天、牛郎织女、九州神韵），雨停冲丛林飞龙（详见 02 行程）</div>
-      </div>
-    </div>
-    <div class="fixed-bar">
-      <span>车票已购：<b>K891 + K892</b></span>
-      <span>住宿：<b>宜盟酒店（步行街店）1晚105.6元</b></span>
-      <span>席别：<b>全程硬座</b></span>
-      <span>预算：<b>约1095–1220元/两人</b></span>
+      <p class="map-note">上方为高德地图真实地图，可拖动缩放，点标记看详情；示意：点位为相对位置示意，非精确比例；实时导航请用手机地图（高德 / 百度）。</p>
     </div>
   </section>
 
-  <!-- ===== 02 四天行程 ===== -->
+  <!-- ===== 01 四天行程 ===== -->
   <section class="block" id="itinerary">
     <div class="sec-head">
       <span class="sec-no">02</span>
@@ -380,73 +472,6 @@
       <span class="arrow"></span>
     </button>
     <div class="acc-panel">
-      <div class="map-wrap">
-        <div class="map-title">市区地图 · 可拖动缩放（需联网）</div>
-        <div id="realmap"></div>
-        <div class="map-title">点位速览 · 示意</div>
-        <div class="map-flex">
-          <svg viewBox="0 0 800 430" role="img" aria-label="芜湖市区示意地图：长江在城西，青弋江穿城，方特在东北，古城在青弋江畔">
-            <rect x="0" y="0" width="60" height="430" fill="#DCE6EF" stroke="#6E8CA6" stroke-width="1.5"/>
-            <text x="30" y="196" font-size="14" fill="#8AA3B8" text-anchor="middle" font-family="Noto Sans SC,sans-serif">
-              <tspan x="30" dy="0">长</tspan><tspan x="30" dy="17">江</tspan>
-            </text>
-            <rect x="60" y="320" width="740" height="80" fill="#DCE6EF" stroke="#6E8CA6" stroke-width="1.5"/>
-            <text x="208" y="353" font-size="13" fill="#8AA3B8" font-family="Noto Sans SC,sans-serif">青弋江</text>
-
-            <path d="M 265 14 L 305 122 L 255 250 L 240 405" fill="none" stroke="#2F7D6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M 305 122 L 545 148 L 655 60" fill="none" stroke="#B98A2F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-
-            <circle cx="282" cy="62" r="4" fill="#2F7D6B"/>
-            <circle cx="270" cy="188" r="4" fill="#2F7D6B"/>
-            <circle cx="246" cy="330" r="4" fill="#2F7D6B"/>
-            <circle cx="430" cy="138" r="4" fill="#B98A2F"/>
-
-            <circle cx="305" cy="122" r="14" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
-            <circle cx="545" cy="148" r="13" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
-            <circle cx="655" cy="60" r="13" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
-            <circle cx="255" cy="250" r="13" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
-            <circle cx="210" cy="300" r="13" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
-            <circle cx="88" cy="124" r="13" fill="#173F3B" stroke="#FFFFFF" stroke-width="2.5"/>
-            <text x="305" y="126" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">5</text>
-            <text x="545" y="152" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">2</text>
-            <text x="655" y="64" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">1</text>
-            <text x="255" y="254" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">6</text>
-            <text x="210" y="304" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">3</text>
-            <text x="88" y="128" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">4</text>
-
-            <circle cx="64" cy="112" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
-            <text x="64" y="116" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">7</text>
-            <circle cx="724" cy="145" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
-            <text x="724" y="149" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">8</text>
-            <circle cx="551" cy="26" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
-            <text x="551" y="30" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">9</text>
-            <circle cx="330" cy="140" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
-            <text x="330" y="144" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">10</text>
-            <circle cx="325" cy="104" r="10" fill="#FFF4E2" stroke="#B98A2F" stroke-width="1.5"/>
-            <text x="325" y="108" font-size="11" fill="#B98A2F" font-weight="700" text-anchor="middle" font-family="Noto Sans SC,sans-serif">11</text>
-
-            <text x="662" y="106" font-size="12" fill="#5A635C" font-family="Noto Sans SC,sans-serif">鸠江区</text>
-          </svg>
-          <ol class="map-legend">
-            <li><span class="mk mk1">1</span>方特东方神画（鸠江区）· 单轨 2 号线「徽州路站」</li>
-            <li><span class="mk mk2">2</span>芜湖站（镜湖区）· K891 到 / K892 发</li>
-            <li><span class="mk mk3">3</span>芜湖古城（青弋江畔）· 长虹门</li>
-            <li><span class="mk">4</span>宜盟酒店（步行街店）· 长江中路 · 9/26 入住</li>
-            <li><span class="mk mk5">5</span>鸠兹广场 · 单轨 1 / 2 号线换乘</li>
-            <li><span class="mk mk6">6</span>环城北路站（1 号线 → 古城）</li>
-            <li><span class="mk mk7">7</span>滨江公园 · 长江日落 / 轮渡约 10 元</li>
-            <li><span class="mk mk8">8</span>芜湖市博物馆 · 免费 · 雨天室内</li>
-            <li><span class="mk mk9">9</span>鸠兹古镇 · 徽派夜景 · 夜场约 40 元</li>
-            <li><span class="mk mk10">10</span>镜湖公园 + 鸠兹广场 · 免费</li>
-            <li><span class="mk mk11">11</span>赭山公园 + 广济寺 · 免费</li>
-            <li class="leg-line"><span class="swatch l1"></span>单轨 1 号线（南北向）</li>
-            <li class="leg-line"><span class="swatch l2"></span>单轨 2 号线（芜湖站→方特约 30–37 分钟）</li>
-            <li class="leg-line"><span class="swatch water"></span>长江 / 青弋江</li>
-            <li class="leg-line"><span class="swatch alt"></span>备选玩法（时间富余再去）</li>
-          </ol>
-        </div>
-        <p class="map-note">上方为高德地图真实地图，可拖动缩放，点标记看详情；示意：点位为相对位置示意，非精确比例；实时导航请用手机地图（高德 / 百度）。</p>
-      </div>
       <table>
         <colgroup><col style="width:26%"><col style="width:74%"></colgroup>
         <thead><tr><th>项目</th><th>信息</th></tr></thead>
@@ -641,6 +666,195 @@
 
   </aside>
 </main>
+</div>
+
+<!-- ===== 视图：全新攻略 ===== -->
+<section id="view-guide" class="view gview">
+  <div class="g-top">
+    <button type="button" class="g-back" id="gBack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> 返回主页</button>
+    <span class="g-kicker">全新攻略 · 飞书在线版内容</span>
+  </div>
+  <h1 class="serif g-title">芜湖 9/25–28 双人周末路书</h1>
+  <p class="g-sub">夜车往返 · 方特东方神画 · 雨天玩法 · 两人合计约 1095–1220 元</p>
+
+  <div class="tip tip-blue">
+    <b>先给结论：</b>9/25 周五夜车 K891 出发，9/26 中雨天玩「博物馆 + 古城 + 美食」，9/27 小雨天把整天留给方特东方神画，当晚 K892 夜车返程，9/28 早上到菏泽。车票、酒店已订好，只剩方特门票和两三个小决策。
+    <br/><b>住哪：</b>宜盟酒店（步行街店），长江中路吉园小区 1 号商铺，双人间 105.6 元/晚，已支付，离古城、滨江公园步行可达。
+    <br/><b>最大风险：</b>9/27 小雨 + 当晚 00:01 夜车，方特出园时间要卡住（18:30 撤稳妥，玩到 21:00 夜场也来得及但别贪最后一刻）。
+  </div>
+
+  <h2 class="serif">方特选哪天：主案 27 日，想 26 日也行</h2>
+  <p>两天都开放（9/26 周六、9/27 周日），差别在天气和营业节奏，放一起对比再决定。</p>
+  <table>
+    <thead><tr><th>对比项</th><th>9/26（周六）</th><th>9/27（周日）</th></tr></thead>
+    <tbody>
+      <tr><td>天气</td><td>中雨 22–27℃</td><td>小雨 23–30℃（更稳）</td></tr>
+      <tr><td>开园</td><td>9:30 开园，日场至 17:30（实查）</td><td>9:30 开园，日场至 17:30（实查）</td></tr>
+      <tr><td>夜场</td><td>周末常加开夜场至 21:00，以官方公告为准</td><td>同左；当晚要赶 00:01 夜车，夜场可玩但出园要果断</td></tr>
+      <tr><td>户外项目</td><td>中雨大概率不开（丛林飞龙等）</td><td>小雨有停雨窗口，户外项目机会更大</td></tr>
+      <tr><td>另一天怎么排</td><td>27 日小雨逛古城（廊檐+展馆，能玩）</td><td>26 日中雨玩博物馆+古城（本就雨天友好）</td></tr>
+    </tbody>
+  </table>
+  <div class="tip-grid">
+    <div class="tip tip-green"><b>主案：方特放 27 日。</b>天气更稳、户外项目机会更多，26 日中雨玩博物馆和古城完全不亏，两条线都顺路。</div>
+    <div class="tip tip-yellow"><b>若坚持 26 日去方特：</b>完全可行，东方神画核心项目（女娲补天、牛郎织女、九州神韵、烈焰风云、雷峰塔）都在室内；代价是丛林飞龙等户外项目大概率停开、夜场体验打折。</div>
+  </div>
+
+  <h2 class="serif">两天怎么走：26 日雨天线 + 27 日方特线</h2>
+  <p>主线逻辑：26 日中雨，芜湖博物馆在室内、古城有廊檐和展馆，把这一天做成「雨天不心疼」的组合；27 日小雨且要赶夜车，整天待在方特，出园后直接取行李进站，不用跨区赶场。</p>
+  <table>
+    <thead><tr><th>日期</th><th>主区域</th><th>核心安排</th><th>落脚</th><th>预订风险</th></tr></thead>
+    <tbody>
+      <tr><td>9/25 周五</td><td>聊城—芜湖（夜车）</td><td>22:25 K891 发车</td><td>车上</td><td>已购票</td></tr>
+      <tr><td>9/26 周六</td><td>芜湖东（博物馆）→ 城西（古城/步行街）</td><td>市博物馆（免费）→ 凤凰美食街午餐 → 芜湖古城 → 入住宜盟</td><td>宜盟酒店</td><td>博物馆需官方预约；联票 50 可选</td></tr>
+      <tr><td>9/27 周日</td><td>方特（城东）</td><td>方特东方神画全天 → 取行李 → 芜湖站</td><td>车上</td><td>方特门票提前网购；夜场以公告为准</td></tr>
+      <tr><td>9/28 周一</td><td>返程</td><td>00:01 K892 → 08:39 到菏泽</td><td>—</td><td>已购票</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="serif">Day 1 · 9/26（周六 · 中雨）：博物馆 → 古城 → 美食</h2>
+  <p>今天主题是「雨天也玩得舒服」：上午室内博物馆，下午廊檐下的古城，晚上住进宜盟后步行去吃、去江边吹风。全程在城西收尾，不走回头路。</p>
+  <table>
+    <thead><tr><th>时间</th><th>安排</th><th>交通 / 步行</th><th>费用 / 预约</th></tr></thead>
+    <tbody>
+      <tr><td>08:14</td><td>到芜湖站，早餐（渣肉蒸饭、锅贴），行李先存车站寄存柜（晚上入住再取）</td><td>出站即早餐摊</td><td>寄存约 10–20 元/件（估算）</td></tr>
+      <tr><td>09:30–11:30</td><td>芜湖市博物馆：三层通商史 + 人字洞文物，免费室内</td><td>离车站约 3.5km，打车约 10 分钟</td><td>免费；需官方预约（微信搜「芜湖市博物馆」）</td></tr>
+      <tr><td>12:00</td><td>凤凰美食街午餐：耿福兴虾籽面 / 四季春小笼汤包</td><td>博物馆打车约 15 分钟</td><td>人均 15–30 元（参考）</td></tr>
+      <tr><td>13:30–16:30</td><td>芜湖古城：长虹门（南门）进 → 大成殿 → 花街 → 南正街 → 县衙谯楼（联票 50 可选）</td><td>美食街步行约 15 分钟</td><td>古城免费；联票可选</td></tr>
+      <tr><td>16:30</td><td>入住宜盟酒店（步行街店）</td><td>古城步行约 15 分钟</td><td>105.6 元已支付</td></tr>
+      <tr><td>17:00–19:00</td><td>晚餐：红皮鸭子、臭鳜鱼、赤豆酒酿；雨停则步行约 5 分钟去滨江公园看江（中江塔 + 老海关钟楼）</td><td>酒店周边步行</td><td>晚餐两人约 80–120 元（估算）</td></tr>
+      <tr><td>19:30</td><td>若雨停：回古城看灯笼夜景，21:00 前回酒店</td><td>步行</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <div class="tip-grid">
+    <div class="tip tip-green"><b>今日高光：</b>古城廊檐下的青石板、大成殿和县衙谯楼，雨天反而更有味道；滨江公园是白捡的行程，酒店步行 5 分钟。</div>
+    <div class="tip tip-yellow"><b>可删减项：</b>雨太大 → 砍滨江公园和夜景，早回酒店休息；联票 50 元买不买取决于要不要进县衙谯楼内部。</div>
+  </div>
+
+  <h2 class="serif">Day 2 · 9/27（周日 · 小雨）：方特东方神画全天 → 夜车返程</h2>
+  <p>今天只做一件事：把方特玩透。9:30 开园就去，18:30 撤最稳妥；若当天确认有夜场（周末常加开至 21:00，以方特 App / 官方公告为准）且想玩，最晚 21:00 闭园立即出园，22:00 前后到站，留 2 小时缓冲也来得及。</p>
+  <table>
+    <thead><tr><th>时间</th><th>安排</th><th>交通 / 步行</th><th>费用 / 预约</th></tr></thead>
+    <tbody>
+      <tr><td>08:30</td><td>早餐后退房，行李寄宜盟前台（27 号不再住店）</td><td>—</td><td>—</td></tr>
+      <tr><td>09:30</td><td>到方特，9:30 开园即入园（先看方特 App 排队时长）</td><td>单轨 2 号线（步行街打车到环城北路站起步价 + 约 30 分钟）/ 打车约 25 分钟 30–40 元</td><td>地铁约 2 元/人；打车 30–40 元（估算）</td></tr>
+      <tr><td>10:00–12:30</td><td>室内主打：女娲补天 → 牛郎织女 → 九州神韵（4D 大项目，小雨不耽误）</td><td>园内步行</td><td>已含门票</td></tr>
+      <tr><td>12:30–13:30</td><td>园内午餐（自带水和小食省钱，园内餐饮贵）</td><td>—</td><td>两人约 40–80 元（估算）</td></tr>
+      <tr><td>13:30–17:30</td><td>下午：烈焰风云、雷峰塔、孟姜女；停雨窗口冲木质过山车丛林飞龙</td><td>园内步行</td><td>已含门票</td></tr>
+      <tr><td>18:30</td><td>出园（夜场若开，可延到 19:30–20:00）</td><td>打车回宜盟取行李约 25 分钟</td><td>打车 30–40 元（估算）</td></tr>
+      <tr><td>20:00 前</td><td>到芜湖站候车（预留 4 小时缓冲）；夜场玩满 21:00 出园则 22:00 前后到站</td><td>宜盟打车/地铁到站约 20 分钟</td><td>打车约 15–20 元（估算）</td></tr>
+      <tr><td>00:01</td><td>K892 发车，硬座夜车</td><td>—</td><td>已购票</td></tr>
+    </tbody>
+  </table>
+  <div class="tip-grid">
+    <div class="tip tip-green"><b>今日高光：</b>上午 4D 大项目连刷，下午挑一个户外过山车；若赶上夜场，灯光下的园区是加分项。</div>
+    <div class="tip tip-yellow"><b>现场删减：</b>排队超 45 分钟的项目先跳过、最后补；体力不够就放弃一个户外项目，赶车优先于刷项目。</div>
+  </div>
+  <blockquote>衔接公式：方特 21:00 闭园 → 打车回宜盟取行李 25 分钟 → 宜盟到站 20 分钟 → 22:00 前后到站 → 00:01 发车，全程留约 2 小时缓冲；走 18:30 方案则缓冲 4 小时，更从容。</blockquote>
+
+  <h2 class="serif">住宜盟、从车站怎么走：住宿与市内交通</h2>
+  <p>住宿已定：宜盟酒店（步行街店），镜湖区长江中路吉园小区 1 号商铺，悬浮双人间（双床·40–45㎡），105.6 元/晚，9/26 入住 9/27 退，26 日 18:00 前可免费取消。位置在古城与滨江公园之间，晚上吃饭、散步都在步行范围。</p>
+  <table>
+    <thead><tr><th>路段</th><th>推荐方式</th><th>时间</th><th>费用</th><th>注意</th></tr></thead>
+    <tbody>
+      <tr><td>芜湖站 → 博物馆</td><td>打车</td><td>约 10 分钟</td><td>约 10–15 元</td><td>行李先存车站，轻装逛</td></tr>
+      <tr><td>博物馆 → 凤凰美食街</td><td>打车</td><td>约 15 分钟</td><td>约 15–20 元</td><td>—</td></tr>
+      <tr><td>美食街 → 古城 → 宜盟</td><td>步行</td><td>各约 15 分钟</td><td>免费</td><td>青石板雨天防滑</td></tr>
+      <tr><td>宜盟 → 方特</td><td>打车 / 单轨 2 号线</td><td>约 25 分钟 / 约 40 分钟</td><td>30–40 元 / 2 元/人</td><td>经济优先选地铁，赶时间打车</td></tr>
+      <tr><td>宜盟 → 芜湖站</td><td>打车 / 地铁</td><td>约 20 分钟</td><td>15–20 元 / 2 元/人</td><td>27 日晚赶夜车，宁早勿晚</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="serif">芜湖吃什么：雨天顺路点单</h2>
+  <div class="tip-grid">
+    <div class="tip tip-green"><b>早餐与汤包：</b>耿福兴（凤凰美食街总店，1888 老字号）虾籽面约 18 元、蟹黄汤包、酥烧饼；四季春小笼汤包约 20 元/笼、渣肉蒸饭约 15 元。雨天清晨来一碗热汤面最舒服。</div>
+    <div class="tip tip-yellow"><b>正餐与小吃：</b>红皮鸭子约 25 元/半只（蓝义兴约 28 元/斤）；和府园林臭鳜鱼人均 60–80 元、偏甜口；卡旺卡本土奶茶顺路来一杯；赤豆酒酿、桂花赤豆糊做收尾。</div>
+  </div>
+
+  <h2 class="serif">两人账单：约 1095–1220 元</h2>
+  <table>
+    <thead><tr><th>项目</th><th>金额（两人）</th><th>可靠度</th></tr></thead>
+    <tbody>
+      <tr><td>大交通（往返夜车）</td><td>253 元（我 191 + 同伴 62）</td><td>实查（已购票）</td></tr>
+      <tr><td>方特门票 ×2</td><td>478–560 元</td><td>实查：OTA/门市 280；参考：直播间预售 239</td></tr>
+      <tr><td>住宿 1 晚</td><td>105.6 元</td><td>实查（已支付）</td></tr>
+      <tr><td>餐饮 3 天</td><td>约 200 元</td><td>估算</td></tr>
+      <tr><td>市内交通</td><td>约 60–100 元</td><td>估算（地铁为主，27 日晚两段打车）</td></tr>
+      <tr><td>合计</td><td><b>约 1095–1220 元</b></td><td>低值 253+478+105.6+200+60；高值 253+560+105.6+200+100</td></tr>
+    </tbody>
+  </table>
+  <p>古城联票 50 元另计（可选）。要省钱：方特门票盯直播间预售（239），市内多坐单轨少打车。</p>
+
+  <h2 class="serif">这些坑别踩（都在你们这两条线上）</h2>
+  <table>
+    <thead><tr><th>位置</th><th>坑</th><th>怎么做</th></tr></thead>
+    <tbody>
+      <tr><td>芜湖站出站口</td><td>黑车拉客、司机推回扣店</td><td>只打表 / 网约车（起步 8 元）</td></tr>
+      <tr><td>方特门口</td><td>兜售一次性雨衣，园内禁用来路货</td><td>自备雨衣雨伞，或园内正规渠道买</td></tr>
+      <tr><td>东方神画·雷峰塔</td><td>是室内跳楼机，不是观光塔</td><td>恐高就别排，先看项目说明</td></tr>
+      <tr><td>园内餐饮</td><td>贵且排队</td><td>自带水和小食</td></tr>
+      <tr><td>门票</td><td>黄牛「快速通行卡」、现场高价票</td><td>提前 1–2 天线上买（239–280）</td></tr>
+      <tr><td>古城门口</td><td>「进城费」黄牛</td><td>古城免费，直接进</td></tr>
+      <tr><td>古城 / 广济寺</td><td>铁画路边摊伪劣虚高；「算命大妈」「免费导游」</td><td>铁画认准工艺美术厂；套路一律不理</td></tr>
+      <tr><td>伴手礼</td><td>景区内溢价</td><td>傻子瓜子、无为板鸭去超市买</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="serif">出发前复查清单</h2>
+  <div class="chk">
+    <label><input type="checkbox"> 方特门票：提前 1–2 天线上买（方特旅游 App / 直播间 239 / OTA 280），下单前确认 9/27 可入园、退改规则</label>
+    <label><input type="checkbox"> 芜湖市博物馆：微信搜索官方公众号「芜湖市博物馆」预约 9/26（周六）免费票，截图预约码</label>
+    <label><input type="checkbox"> 9/27 方特夜场：当天在方特 App / 官方公告确认是否开夜场，决定 18:30 撤还是玩到 21:00</label>
+    <label><input type="checkbox"> 天气：出发前 48 小时核对 9/26–27 芜湖天气预报，按中雨/小雨带好雨具</label>
+    <label><input type="checkbox"> 车票与证件：K891 / K892 订单、身份证、充电宝、外套（夜车空调冷）</label>
+    <label><input type="checkbox"> 住宿：宜盟酒店订单（美团已支付），确认 26 日 18:00 前可免费取消的政策不需要动</label>
+  </div>
+
+  <div class="g-bottom"><button type="button" class="g-back" id="gBack2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> 返回主页</button></div>
+</section>
+
+<!-- ===== 视图：出发前要定的 ===== -->
+<section id="view-decide" class="view gview">
+  <div class="g-top">
+    <button type="button" class="g-back" id="dBack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> 返回主页</button>
+    <span class="g-kicker">出发前要定的 · 已全部敲定</span>
+  </div>
+  <h1 class="serif g-title">出发前要定的</h1>
+  <p class="g-sub">住宿和方特都已订好，出发前只剩 3 个小决策，别纠结</p>
+
+  <div class="decide-grid">
+    <div class="decide-card" style="border-color:#C4DAD0;box-shadow:0 2px 0 rgba(31,90,82,.12);">
+      <div class="decide-head">住宿（已订） <span class="flag" style="background:var(--teal-soft);color:var(--teal-dark);">已定</span></div>
+      <div class="decide-opts"><b>宜盟酒店（步行街店）</b> · 悬浮双人间（双床）· <b>105.6 元/晚</b></div>
+      <div class="decide-rec">镜湖区长江中路吉园小区 1 号商铺 · 9/26 入住、9/27 退 · 26 日 18:00 前可免费取消 · 已享延迟退房（美团已支付）</div>
+    </div>
+    <div class="decide-card" style="border-color:#C4DAD0;box-shadow:0 2px 0 rgba(31,90,82,.12);">
+      <div class="decide-head">方特选园（已定） <span class="flag" style="background:var(--teal-soft);color:var(--teal-dark);">已定</span></div>
+      <div class="decide-opts"><b>东方神画</b>（国风 · 室内项目多，雨天友好）</div>
+      <div class="decide-rec">9/27 全天：小雨 + 营业至 21:00 有夜场；室内主打（女娲补天、牛郎织女、九州神韵），雨停冲丛林飞龙</div>
+    </div>
+  </div>
+
+  <h2 class="serif">仍需确认（出发前拍板）</h2>
+  <table>
+    <thead><tr><th>待定项</th><th>选项</th><th>建议</th></tr></thead>
+    <tbody>
+      <tr><td>方特夜场去不去</td><td>18:30 撤（稳） / 玩到 21:00（赶车但来得及）</td><td>当天看天气和排队再定，别提前纠结</td></tr>
+      <tr><td>古城联票 50 元</td><td>买 / 不买</td><td>想进县衙谯楼内部就买，只在门口拍照就不买</td></tr>
+      <tr><td>方特门票渠道</td><td>直播间 239 / OTA 280</td><td>提前 1–2 天下单，差价 41 元/人</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="serif">出发前复查</h2>
+  <div class="chk">
+    <label><input type="checkbox"> 方特门票提前 1–2 天网购，确认 9/27 可入园</label>
+    <label><input type="checkbox"> 市博物馆官方公众号预约 9/26 免费票</label>
+    <label><input type="checkbox"> 9/27 当天确认方特夜场是否开放</label>
+    <label><input type="checkbox"> 48 小时前核对芜湖天气，带好雨具</label>
+  </div>
+
+  <div class="g-bottom"><button type="button" class="g-back" id="dBack2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> 返回主页</button></div>
+</section>
 <script>
 (function(){
   var btns=document.querySelectorAll('.acc-btn');
@@ -652,10 +866,35 @@
         btn.setAttribute('aria-expanded',open?'true':'false');
         if(open&&window.__realmap){
           setTimeout(function(){window.__realmap.invalidateSize();},80);
+          setTimeout(function(){if(window.__realmap.refit)window.__realmap.refit();},180);
         }
       });
     })(btns[i]);
   }
+})();
+(function(){
+  function show(name){
+    var views=document.querySelectorAll('.view');
+    for(var i=0;i<views.length;i++){
+      views[i].classList.toggle('active',views[i].id==='view-'+name);
+    }
+    window.scrollTo(0,0);
+  }
+  function fromHash(){
+    var h=(location.hash||'').replace('#','');
+    show((h==='guide'||h==='decide')?h:'main');
+  }
+  function nav(id){return function(){location.hash=id;};}
+  var g=document.getElementById('btnGuide');
+  var d=document.getElementById('btnDecide');
+  if(g){g.addEventListener('click',nav('guide'));}
+  if(d){d.addEventListener('click',nav('decide'));}
+  var backs=document.querySelectorAll('.g-back');
+  for(var i=0;i<backs.length;i++){
+    backs[i].addEventListener('click',nav('main'));
+  }
+  window.addEventListener('hashchange',fromHash);
+  fromHash();
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -698,9 +937,8 @@
     latlngs.push(altPts[j].c);
     L.marker(altPts[j].c,{icon:altIcon}).addTo(map).bindPopup('<strong style="color:#B98A2F">'+altPts[j].t+'</strong><br>'+altPts[j].d);
   }
-  if(latlngs.length){
-    map.fitBounds(latlngs,{padding:[30,30]});
-  }
+  map.refit=function(){ if(latlngs.length){ map.fitBounds(latlngs,{padding:[30,30]}); } };
+  map.refit();
   window.__realmap=map;
 })();
 </script>
