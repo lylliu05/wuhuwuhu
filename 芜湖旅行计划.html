@@ -103,22 +103,28 @@
   .todo-reset{font-size:13px;color:var(--teal-dark);background:#fff;border:1.5px solid var(--line);padding:5px 14px;border-radius:999px;cursor:pointer;font-family:inherit;}
   .todo-reset:hover{border-color:var(--teal-dark);}
   .todo-list{list-style:none;margin:8px 0 2px;padding:0;display:flex;flex-direction:column;gap:5px;}
+  .tl-card{min-width:0;}
   .todo-item{display:flex;align-items:flex-start;gap:9px;padding:6px 8px;border:1px solid transparent;border-radius:8px;font-size:14px;line-height:1.65;color:var(--ink);}
   .todo-item:hover{background:#fff;border-color:var(--line);}
   .todo-item.done .todo-text{color:var(--ink-faint);text-decoration:line-through;}
   .todo-check{margin-top:4px;accent-color:var(--teal-dark);width:15px;height:15px;flex:none;cursor:pointer;}
+  .todo-time{flex:none;min-width:46px;text-align:center;font-size:12px;font-weight:700;color:var(--teal-dark);background:var(--teal-soft);border-radius:6px;padding:2px 6px;margin-top:1px;cursor:text;outline:none;}
+  .todo-time:focus{background:#FFFDF6;box-shadow:0 0 0 1.5px var(--gold);}
+  .todo-time.empty{color:var(--ink-faint);background:transparent;border:1px dashed var(--line);}
   .todo-text{flex:1;min-width:0;outline:none;cursor:text;word-break:break-word;}
   .todo-text:focus{background:#FFFDF6;box-shadow:0 0 0 1.5px var(--gold);border-radius:4px;}
   .todo-del{flex:none;width:22px;height:22px;border:none;background:none;color:var(--ink-faint);font-size:16px;line-height:1;cursor:pointer;border-radius:6px;opacity:0;transition:opacity .12s;font-family:inherit;}
   .todo-item:hover .todo-del{opacity:1;}
   .todo-del:hover{color:#B4543A;background:#F7E8E2;}
-  .todo-add{display:flex;gap:8px;margin-top:10px;}
-  .todo-add input{flex:1;min-width:0;font-size:13px;padding:7px 12px;border:1.5px dashed var(--line);border-radius:8px;background:#fff;color:var(--ink);font-family:inherit;}
+  .todo-add{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+  .todo-add input[type="time"]{flex:none;width:98px;font-size:13px;padding:6px 8px;border:1.5px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font-family:inherit;}
+  .todo-add input[type="text"]{flex:1;min-width:0;font-size:13px;padding:7px 12px;border:1.5px dashed var(--line);border-radius:8px;background:#fff;color:var(--ink);font-family:inherit;}
   .todo-add input:focus{border-color:var(--teal-dark);outline:none;}
   .todo-add button{flex:none;font-size:13px;padding:7px 16px;border-radius:8px;border:1.5px solid var(--teal-dark);background:var(--teal-dark);color:#fff;cursor:pointer;font-weight:700;font-family:inherit;}
   .todo-add button:hover{background:var(--teal-deep);}
   @media (max-width:720px){
     .todo-bar{justify-content:flex-start;}
+    .todo-add input[type="time"]{width:88px;}
   }
   @media (max-width:720px){
     .tip-grid{grid-template-columns:1fr;}
@@ -429,6 +435,7 @@
         <h4>夜车出发 <span class="tag warn">多云转小雨 23–32℃</span></h4>
         <ul class="todo-list"></ul>
         <div class="todo-add">
+          <input type="time" class="todo-add-time" title="时间（可留空）">
           <input type="text" class="todo-add-input" placeholder="＋ 添加一项，回车保存">
           <button type="button" class="todo-add-btn">添加</button>
         </div>
@@ -451,6 +458,7 @@
           </div>
         </div>
         <div class="todo-add">
+          <input type="time" class="todo-add-time" title="时间（可留空）">
           <input type="text" class="todo-add-input" placeholder="＋ 添加一项，回车保存">
           <button type="button" class="todo-add-btn">添加</button>
         </div>
@@ -463,6 +471,7 @@
         <ul class="todo-list"></ul>
         <div class="alt-note"><b>本晚住车上</b>：K892 夜车，芜湖 00:01 → 菏泽 08:39，车票已购，睡一觉到家；22:00 前到站都从容，别恋战</div>
         <div class="todo-add">
+          <input type="time" class="todo-add-time" title="时间（可留空）">
           <input type="text" class="todo-add-input" placeholder="＋ 添加一项，回车保存">
           <button type="button" class="todo-add-btn">添加</button>
         </div>
@@ -474,6 +483,7 @@
         <h4>凌晨返程到家 <span class="tag warn">小雨转阴 23–29℃</span></h4>
         <ul class="todo-list"></ul>
         <div class="todo-add">
+          <input type="time" class="todo-add-time" title="时间（可留空）">
           <input type="text" class="todo-add-input" placeholder="＋ 添加一项，回车保存">
           <button type="button" class="todo-add-btn">添加</button>
         </div>
@@ -676,7 +686,7 @@
         <thead><tr><th>备选</th><th>怎么玩</th><th>适合</th></tr></thead>
         <tbody>
           <tr><td><b>滨江公园</b>（免费）</td><td>长江日落（约 17–18 点）、中江塔 + 老海关钟楼出片；轮渡约 10 元</td><td>已并入 26 日傍晚：宜盟酒店步行约 5 分钟，若雨停就去</td></tr>
-          <tr><td><b>芜湖市博物馆</b>（免费）</td><td>三层看芜湖通商史、人字洞文物；需官方预约，别买黄牛"内部票"</td><td>已并入 26 日上午主线（雨天室内）</td></tr>
+          <tr><td><b>芜湖市博物馆</b>（免费）</td><td>三层看芜湖通商史、人字洞文物；无须预约，别买黄牛"内部票"</td><td>已并入 27 日上午主线（雨天室内）</td></tr>
           <tr><td><b>鸠兹古镇</b></td><td>徽派水乡夜景 + 演出；白天约 80 元，夜场约 40 元更划算</td><td>本次时间紧（26 日满、27 日赶车），大概率去不了，可留待下次</td></tr>
           <tr><td><b>镜湖公园 + 鸠兹广场</b>（免费）</td><td>鸠兹雕塑地标，镜湖游船约 30 元 / 人</td><td>市中心碎片时间，顺路买杯卡旺卡</td></tr>
           <tr><td><b>赭山公园 + 广济寺</b>（免费）</td><td>登赭山看城景；广济寺周边"算命大妈"是套路，别信</td><td>上午散步备选</td></tr>
@@ -711,7 +721,7 @@
     <thead><tr><th>对比项</th><th>9/26（周六）· 已定方特</th><th>9/27（周日）· 已定博物馆+古城</th></tr></thead>
     <tbody>
       <tr><td>天气</td><td>中雨转小雨 22–27℃</td><td>中雨转小雨 23–30℃</td></tr>
-      <tr><td>开园</td><td>9:30 开园，日场至 17:30（实查）</td><td>市博物馆 09:30 开放（免费预约）</td></tr>
+      <tr><td>开园</td><td>9:30 开园，日场至 17:30（实查）</td><td>市博物馆 09:30 开放（免费 · 无须预约）</td></tr>
       <tr><td>夜场</td><td>周末常加开夜场至 21:00；当晚住酒店不赶车，可玩满</td><td>不涉及；20:00 前到站赶 00:01 夜车</td></tr>
       <tr><td>户外项目</td><td>中雨大概率不开（丛林飞龙等），雨停窗口可冲</td><td>古城廊檐 + 展馆，雨天友好</td></tr>
       <tr><td>当晚落脚</td><td>宜盟酒店（步行街店）</td><td>K892 夜车（00:01 发）</td></tr>
@@ -729,7 +739,7 @@
     <tbody>
       <tr><td>9/25 周五</td><td>聊城—芜湖（夜车）</td><td>22:25 K891 发车</td><td>车上</td><td>已购票</td></tr>
       <tr><td>9/26 周六</td><td>方特（城东）</td><td>方特东方神画全天 → 回芜湖站取行李 → 入住宜盟</td><td>宜盟酒店</td><td>方特门票提前网购；夜场以公告为准</td></tr>
-      <tr><td>9/27 周日</td><td>芜湖东（博物馆）→ 城西（古城/步行街）</td><td>市博物馆（免费）→ 凤凰美食街午餐 → 芜湖古城 → 取行李 → 芜湖站</td><td>车上</td><td>博物馆需官方预约；联票 50 可选</td></tr>
+      <tr><td>9/27 周日</td><td>芜湖东（博物馆）→ 城西（古城/步行街）</td><td>市博物馆（免费）→ 凤凰美食街午餐 → 芜湖古城 → 取行李 → 芜湖站</td><td>车上</td><td>博物馆免费无须预约；联票 50 可选</td></tr>
       <tr><td>9/28 周一</td><td>返程</td><td>00:01 K892 → 08:39 到菏泽</td><td>—</td><td>已购票</td></tr>
     </tbody>
   </table>
@@ -759,7 +769,7 @@
     <thead><tr><th>时间</th><th>安排</th><th>交通 / 步行</th><th>费用 / 预约</th></tr></thead>
     <tbody>
       <tr><td>08:30</td><td>早餐后退房，行李寄宜盟前台（27 号不再住店，晚上取走去车站）</td><td>—</td><td>—</td></tr>
-      <tr><td>09:30–11:30</td><td>芜湖市博物馆：三层通商史 + 人字洞文物，免费室内</td><td>宜盟打车约 10 分钟</td><td>免费；需官方预约（微信搜「芜湖市博物馆」）</td></tr>
+      <tr><td>09:30–11:30</td><td>芜湖市博物馆：三层通商史 + 人字洞文物，免费室内</td><td>宜盟打车约 10 分钟</td><td>免费 · 无须预约</td></tr>
       <tr><td>12:00</td><td>凤凰美食街午餐：耿福兴虾籽面 / 四季春小笼汤包</td><td>博物馆打车约 15 分钟</td><td>人均 15–30 元（参考）</td></tr>
       <tr><td>13:30–16:30</td><td>芜湖古城：长虹门（南门）进 → 大成殿 → 花街 → 南正街 → 县衙谯楼（联票 50 可选）</td><td>美食街步行约 15 分钟</td><td>古城免费；联票可选</td></tr>
       <tr><td>16:30</td><td>回宜盟取行李 → 晚餐（红皮鸭子、臭鳜鱼、赤豆酒酿）</td><td>古城步行约 15 分钟</td><td>晚餐两人约 80–120 元（估算）</td></tr>
@@ -781,7 +791,7 @@
     <tbody>
       <tr><td>芜湖站 → 方特（26 日）</td><td>地铁 2 号线直达</td><td>约 37 分钟</td><td>2 元/人</td><td>行李先存车站，轻装玩</td></tr>
       <tr><td>方特 → 芜湖站 → 宜盟（26 日晚）</td><td>地铁 2 号线 + 打车</td><td>约 40+15 分钟</td><td>2 元/人 + 15–20 元</td><td>夜场玩满 21:00 出园，22:30 前到店</td></tr>
-      <tr><td>宜盟 → 博物馆 → 美食街（27 日）</td><td>打车</td><td>各约 10–15 分钟</td><td>约 10–20 元/段</td><td>博物馆需预约</td></tr>
+      <tr><td>宜盟 → 博物馆 → 美食街（27 日）</td><td>打车</td><td>各约 10–15 分钟</td><td>约 10–20 元/段</td><td>博物馆无须预约</td></tr>
       <tr><td>美食街 → 古城 → 宜盟</td><td>步行</td><td>各约 15 分钟</td><td>免费</td><td>青石板雨天防滑</td></tr>
       <tr><td>宜盟 → 芜湖站（27 日晚）</td><td>打车 / 地铁</td><td>约 20 分钟</td><td>15–20 元 / 2 元/人</td><td>赶 00:01 夜车，20:00 前到站更稳</td></tr>
     </tbody>
@@ -825,7 +835,7 @@
   <h2 class="serif">出发前复查清单</h2>
   <div class="chk">
     <label><input type="checkbox"> 方特门票：提前 1–2 天线上买（方特旅游 App / 直播间 239 / OTA 280），下单前确认 9/26（周六）可入园、退改规则</label>
-    <label><input type="checkbox"> 芜湖市博物馆：微信搜索官方公众号「芜湖市博物馆」预约 9/27（周日）免费票，截图预约码</label>
+    <label><input type="checkbox"> 芜湖市博物馆：免费 · 无须预约，9/27（周日）直接凭身份证进馆</label>
     <label><input type="checkbox"> 9/26 方特夜场：当天在方特 App / 官方公告确认是否开夜场，决定 18:30 撤还是玩到 21:00（当晚住酒店不赶车）</label>
     <label><input type="checkbox"> 天气：出发前 48 小时核对 9/26–27 芜湖天气预报，按中雨/小雨带好雨具</label>
     <label><input type="checkbox"> 车票与证件：K891 / K892 订单、身份证、充电宝、外套（夜车空调冷）</label>
@@ -870,7 +880,7 @@
   <h2 class="serif">出发前复查</h2>
   <div class="chk">
     <label><input type="checkbox"> 方特门票提前 1–2 天网购，确认 9/26 可入园</label>
-    <label><input type="checkbox"> 市博物馆官方公众号预约 9/27 免费票</label>
+    <label><input type="checkbox"> 市博物馆免费 · 无须预约，27 日直接进</label>
     <label><input type="checkbox"> 9/26 当天确认方特夜场是否开放</label>
     <label><input type="checkbox"> 48 小时前核对芜湖天气，带好雨具</label>
   </div>
@@ -921,70 +931,110 @@
 (function(){
   var KEY='wuhu_todo_v1';
   var DAYS=['d1','d2','d3','d4'];
+  var idSeq=1000;
+  function item(t,time,done,id){return {t:t,time:time||'',done:!!done,id:id||(idSeq++)};}
   var DEFAULT={
     d1:[
-      {t:'白天照常，21:30 前到聊城站候车（今晚 23 时起有小雨，带伞）',done:false},
-      {t:'22:25 K891 发车，硬座夜车——带件外套（车上空调冷）',done:false},
-      {t:'上车前和伙伴对一遍明后天安排',done:false}
+      item('白天照常，到聊城站候车（今晚 23 时起有小雨，带伞）','21:30'),
+      item('上车前和伙伴对一遍明后天安排','22:20'),
+      item('K891 发车，硬座夜车——带件外套（车上空调冷）','22:25')
     ],
     d2:[
-      {t:'08:14 到芜湖站 → 早餐（渣肉蒸饭、锅贴）→ 行李先寄车站柜（晚上取回再入住）',done:false},
-      {t:'09:30 地铁 2 号线直达方特·徽州路站（约 37 分钟 / 2 元）；周末 9:30 开园、营业至 21:00',done:false},
-      {t:'上午 · 室内主打：女娲补天 → 牛郎织女 → 九州神韵，中雨不耽误',done:false},
-      {t:'下午 · 雨停加户外：烈焰风云、雷峰塔、孟姜女；雨停窗口冲丛林飞龙',done:false},
-      {t:'18:30 出园（或周六夜场玩到 21:00——今晚住酒店不赶车，可尽兴）',done:false},
-      {t:'出园 → 地铁 2 号线回芜湖站取行李 → 打车到宜盟入住 → 步行街晚餐',done:false}
+      item('到芜湖站 → 早餐（渣肉蒸饭、锅贴）→ 行李先寄车站柜（晚上取回再入住）','08:14'),
+      item('地铁 2 号线直达方特·徽州路站（约 37 分钟 / 2 元）；周末 9:30 开园、营业至 21:00','09:30'),
+      item('上午 · 室内主打：女娲补天 → 牛郎织女 → 九州神韵，中雨不耽误','10:00'),
+      item('下午 · 雨停加户外：烈焰风云、雷峰塔、孟姜女；雨停窗口冲丛林飞龙','13:30'),
+      item('出园（或周六夜场玩到 21:00——今晚住酒店不赶车，可尽兴）','18:30'),
+      item('出园 → 地铁 2 号线回芜湖站取行李 → 打车到宜盟入住 → 步行街晚餐（夜场 21:00 出园则顺延到 22:00 前后）','20:00')
     ],
     d3:[
-      {t:'08:30 早餐后退房，行李寄宜盟前台（27 号不再住店）',done:false},
-      {t:'09:30–11:30 芜湖市博物馆（免费 · 需官方预约）',done:false},
-      {t:'12:00 午餐：凤凰美食街（四季春小笼汤包 / 耿福兴虾籽面）',done:false},
-      {t:'13:30–16:30 芜湖古城：长虹门 → 大成殿 → 花街 → 南正街 → 县衙谯楼（联票 50 可选）',done:false},
-      {t:'16:30 回宜盟取行李 → 晚餐（红皮鸭子、臭鳜鱼、赤豆酒酿）',done:false},
-      {t:'17:30 雨停则去滨江公园吹江风（酒店步行约 5 分钟）',done:false},
-      {t:'19:30–20:00 到芜湖站候车 → 00:01 K892',done:false}
+      item('早餐后退房，行李寄宜盟前台（27 号不再住店）','08:30'),
+      item('芜湖市博物馆（免费 · 无须预约）','09:30'),
+      item('午餐：凤凰美食街（四季春小笼汤包 / 耿福兴虾籽面）','12:00'),
+      item('芜湖古城：长虹门 → 大成殿 → 花街 → 南正街 → 县衙谯楼（联票 50 可选）','13:30'),
+      item('回宜盟取行李 → 晚餐（红皮鸭子、臭鳜鱼、赤豆酒酿）','16:30'),
+      item('雨停则去滨江公园吹江风（酒店步行约 5 分钟）','17:30'),
+      item('到芜湖站候车 → 00:01 K892','19:30')
     ],
     d4:[
-      {t:'00:01 K892 发车，硬座夜车',done:false},
-      {t:'08:39 到菏泽，回家补觉休整',done:false},
-      {t:'全程在车上，天气不影响',done:false}
+      item('K892 发车，硬座夜车','00:01'),
+      item('到菏泽，回家补觉休整','08:39'),
+      item('全程在车上，天气不影响','00:30')
     ]
   };
+  function normalize(list){
+    return list.map(function(it){
+      if(!it.id){it.id=idSeq++;}
+      if(it.time===undefined){it.time='';}
+      return it;
+    });
+  }
   function load(){
     try{
       var raw=localStorage.getItem(KEY);
       if(raw){
         var d=JSON.parse(raw);
-        if(d&&DAYS.every(function(k){return Array.isArray(d[k]);})){
-          return d;
+        if(d&&d.v>=2&&d.days&&DAYS.every(function(k){return Array.isArray(d.days[k]);})){
+          DAYS.forEach(function(k){d.days[k]=normalize(d.days[k]);});
+          return d.days;
         }
       }
     }catch(e){}
     return JSON.parse(JSON.stringify(DEFAULT));
   }
   var state=load();
-  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify({v:2,days:state}));}catch(e){}}
+  function sortDay(list){
+    return list.slice().sort(function(a,b){
+      var ta=a.time||'99:99',tb=b.time||'99:99';
+      if(ta===tb)return 0;
+      return ta<tb?-1:1;
+    });
+  }
+  function fmtTime(t){
+    if(!t)return '';
+    var m=/^(\d{1,2}):(\d{2})$/.exec(t.trim());
+    if(!m)return '';
+    return (('0'+m[1]).slice(-2))+':'+m[2];
+  }
   function render(){
     DAYS.forEach(function(day){
-      var ul=document.querySelector('.tl-card[data-day="'+day+'"] .todo-list');
+      var card=document.querySelector('.tl-card[data-day="'+day+'"]');
+      var ul=card?card.querySelector('.todo-list'):null;
       if(!ul)return;
       ul.innerHTML='';
-      state[day].forEach(function(item,idx){
+      sortDay(state[day]).forEach(function(item){
         var li=document.createElement('li');
         li.className='todo-item'+(item.done?' done':'');
-        li.dataset.idx=idx;
+        li.dataset.id=item.id;
         var cb=document.createElement('input');
         cb.type='checkbox';cb.className='todo-check';cb.checked=item.done;
+        var tm=document.createElement('span');
+        tm.className='todo-time'+(item.time?'':' empty');
+        tm.textContent=item.time||'--';
+        tm.contentEditable='plaintext-only';
+        tm.title='点我改时间';
         var tx=document.createElement('span');
         tx.className='todo-text';tx.textContent=item.t;tx.contentEditable='plaintext-only';
         var del=document.createElement('button');
         del.type='button';del.className='todo-del';del.textContent='×';
         del.title='删除该项';
-        li.appendChild(cb);li.appendChild(tx);li.appendChild(del);
+        li.appendChild(cb);li.appendChild(tm);li.appendChild(tx);li.appendChild(del);
         ul.appendChild(li);
       });
     });
     updateProgress();
+  }
+  function findItem(li){
+    var card=li.closest('.tl-card');
+    if(!card)return null;
+    var day=card.getAttribute('data-day');
+    var id=+li.dataset.id;
+    var arr=state[day];
+    for(var i=0;i<arr.length;i++){
+      if(arr[i].id===id){return {day:day,item:arr[i],idx:i};}
+    }
+    return null;
   }
   function updateProgress(){
     var total=0,done=0;
@@ -995,10 +1045,13 @@
     var el=document.getElementById('todoProgress');
     if(el)el.textContent='待办 '+(total-done)+' / '+total+' 项';
   }
-  function addItem(day,input){
-    if(!input||!input.value.trim())return;
-    state[day].push({t:input.value.trim(),done:false});
-    input.value='';
+  function addItem(day,timeInput,textInput){
+    var val=textInput?textInput.value.trim():'';
+    if(!val)return;
+    var tv=fmtTime(timeInput?timeInput.value:'');
+    state[day].push(item(val,tv));
+    if(textInput)textInput.value='';
+    if(timeInput)timeInput.value='';
     save();render();
   }
   function bind(){
@@ -1008,43 +1061,50 @@
       var target=e.target;
       if(target.classList.contains('todo-check')){
         var li=target.closest('.todo-item');if(!li)return;
-        var day=li.closest('[data-day]').getAttribute('data-day');
-        state[day][+li.dataset.idx].done=target.checked;
+        var f=findItem(li);if(!f)return;
+        f.item.done=target.checked;
         li.classList.toggle('done',target.checked);
         save();updateProgress();
       }else if(target.classList.contains('todo-del')){
         var li2=target.closest('.todo-item');if(!li2)return;
-        var day2=li2.closest('[data-day]').getAttribute('data-day');
-        state[day2].splice(+li2.dataset.idx,1);
+        var f2=findItem(li2);if(!f2)return;
+        state[f2.day].splice(f2.idx,1);
         save();render();
       }else if(target.classList.contains('todo-add-btn')){
         var box=target.closest('.todo-add');
-        var day3=box.closest('[data-day]').getAttribute('data-day');
-        addItem(day3,box.querySelector('input'));
+        addItem(box.closest('.tl-card').getAttribute('data-day'),box.querySelector('.todo-add-time'),box.querySelector('.todo-add-input'));
       }
     });
     tl.addEventListener('keydown',function(e){
       if(e.key==='Enter'&&e.target.classList.contains('todo-add-input')){
         e.preventDefault();
         var box=e.target.closest('.todo-add');
-        addItem(box.closest('[data-day]').getAttribute('data-day'),e.target);
-      }else if(e.key==='Enter'&&e.target.classList.contains('todo-text')){
+        addItem(box.closest('.tl-card').getAttribute('data-day'),box.querySelector('.todo-add-time'),e.target);
+      }else if(e.key==='Enter'&&(e.target.classList.contains('todo-text')||e.target.classList.contains('todo-time'))){
         e.preventDefault();e.target.blur();
       }
     });
     tl.addEventListener('blur',function(e){
-      if(e.target.classList.contains('todo-text')){
-        var li=e.target.closest('.todo-item');if(!li)return;
-        var day=li.closest('[data-day]').getAttribute('data-day');
-        var txt=e.target.textContent.trim();
+      var t=e.target;
+      if(t.classList.contains('todo-text')){
+        var li=t.closest('.todo-item');if(!li)return;
+        var f=findItem(li);if(!f)return;
+        var txt=t.textContent.trim();
         if(txt){
-          state[day][+li.dataset.idx].t=txt;
-          e.target.textContent=txt;
+          f.item.t=txt;t.textContent=txt;
         }else{
-          state[day].splice(+li.dataset.idx,1);
+          state[f.day].splice(f.idx,1);
           save();render();return;
         }
         save();
+      }else if(t.classList.contains('todo-time')){
+        var li2=t.closest('.todo-item');if(!li2)return;
+        var f2=findItem(li2);if(!f2)return;
+        var val=t.textContent.trim();
+        if(val===''||val==='--'){f2.item.time='';}
+        else if(/^(\d{1,2}):(\d{2})$/.test(val)){f2.item.time=fmtTime(val);}
+        else{t.textContent=f2.item.time||'--';return;}
+        save();render();
       }
     },true);
     var reset=document.getElementById('todoReset');
@@ -1079,7 +1139,7 @@
   ];
   var altPts=[
     {c:[31.334750,118.358290],t:'滨江公园（备选）',d:'免费 · 长江日落约17–18点 · 中江塔+老海关钟楼出片 · 轮渡约10元傍晚顺路看江'},
-    {c:[31.348992,118.430859],t:'芜湖市博物馆（备选）',d:'免费 · 三层看通商史/人字洞文物 · 需官方预约 · 雨天室内备选'},
+    {c:[31.348992,118.430859],t:'芜湖市博物馆（备选）',d:'免费 · 三层看通商史/人字洞文物 · 无须预约 · 雨天室内备选'},
     {c:[31.373479,118.444633],t:'鸠兹古镇（备选）',d:'徽派水乡夜景+演出 · 夜场约40元更划算 · 内部餐饮溢价'},
     {c:[31.330333,118.372945],t:'镜湖公园 · 鸠兹广场（备选）',d:'免费 · 鸠兹雕塑地标 · 游船约30元/人 · 市中心碎片时间顺路买卡旺卡'},
     {c:[31.337321,118.377230],t:'赭山公园 · 广济寺（备选）',d:'免费 · 登赭山看城景 · 广济寺周边算命大妈是套路'}
