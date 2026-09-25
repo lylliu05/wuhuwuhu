@@ -96,6 +96,30 @@
   .chk label{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.6;}
   .chk input{margin-top:4px;accent-color:var(--teal-dark);width:15px;height:15px;flex:none;}
   .g-bottom{margin-top:26px;}
+
+  /* ===== 四天行程 · 代办 ===== */
+  .todo-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 14px;flex-wrap:wrap;}
+  .todo-progress{font-size:13px;color:var(--teal-dark);background:var(--teal-soft);border:1px solid var(--line);padding:5px 14px;border-radius:999px;}
+  .todo-reset{font-size:13px;color:var(--teal-dark);background:#fff;border:1.5px solid var(--line);padding:5px 14px;border-radius:999px;cursor:pointer;font-family:inherit;}
+  .todo-reset:hover{border-color:var(--teal-dark);}
+  .todo-list{list-style:none;margin:8px 0 2px;padding:0;display:flex;flex-direction:column;gap:5px;}
+  .todo-item{display:flex;align-items:flex-start;gap:9px;padding:6px 8px;border:1px solid transparent;border-radius:8px;font-size:14px;line-height:1.65;color:var(--ink);}
+  .todo-item:hover{background:#fff;border-color:var(--line);}
+  .todo-item.done .todo-text{color:var(--ink-faint);text-decoration:line-through;}
+  .todo-check{margin-top:4px;accent-color:var(--teal-dark);width:15px;height:15px;flex:none;cursor:pointer;}
+  .todo-text{flex:1;min-width:0;outline:none;cursor:text;word-break:break-word;}
+  .todo-text:focus{background:#FFFDF6;box-shadow:0 0 0 1.5px var(--gold);border-radius:4px;}
+  .todo-del{flex:none;width:22px;height:22px;border:none;background:none;color:var(--ink-faint);font-size:16px;line-height:1;cursor:pointer;border-radius:6px;opacity:0;transition:opacity .12s;font-family:inherit;}
+  .todo-item:hover .todo-del{opacity:1;}
+  .todo-del:hover{color:#B4543A;background:#F7E8E2;}
+  .todo-add{display:flex;gap:8px;margin-top:10px;}
+  .todo-add input{flex:1;min-width:0;font-size:13px;padding:7px 12px;border:1.5px dashed var(--line);border-radius:8px;background:#fff;color:var(--ink);font-family:inherit;}
+  .todo-add input:focus{border-color:var(--teal-dark);outline:none;}
+  .todo-add button{flex:none;font-size:13px;padding:7px 16px;border-radius:8px;border:1.5px solid var(--teal-dark);background:var(--teal-dark);color:#fff;cursor:pointer;font-weight:700;font-family:inherit;}
+  .todo-add button:hover{background:var(--teal-deep);}
+  @media (max-width:720px){
+    .todo-bar{justify-content:flex-start;}
+  }
   @media (max-width:720px){
     .tip-grid{grid-template-columns:1fr;}
     .gview table{font-size:13px;}
@@ -386,75 +410,73 @@
     </div>
   </section>
 
-  <!-- ===== 01 四天行程 ===== -->
+  <!-- ===== 01 四天行程（可编辑代办） ===== -->
   <section class="block" id="itinerary">
     <div class="sec-head">
       <span class="sec-no">02</span>
-      <h2 class="sec-title serif">四天行程</h2>
-      <span class="sec-note">雨天提示已折叠，不占主线</span>
+      <h2 class="sec-title serif">四天行程 · 代办</h2>
+      <span class="sec-note">可勾选 · 点文字编辑 · 可增删 · 自动保存</span>
+    </div>
+    <div class="todo-bar">
+      <span class="todo-progress" id="todoProgress">待办 0/0 项</span>
+      <button type="button" class="todo-reset" id="todoReset">重置为默认</button>
     </div>
 
     <div class="timeline">
       <div class="tl-time"><div class="tl-date">9/25</div><div class="tl-dow">周五 · 夜车出发</div></div>
       <div class="tl-rail"><span class="tl-dot gold"></span></div>
-      <div class="tl-card">
-        <h4>夜车出发 <span class="tag warn">多云 23–32℃</span></h4>
-        <ul>
-          <li>白天照常，<b>21:30 前</b>到聊城站候车</li>
-          <li><b>22:25</b> K891 发车，硬座夜车——带件外套（车上空调冷）</li>
-          <li>上车前和伙伴对一遍明后天安排</li>
-        </ul>
+      <div class="tl-card" data-day="d1">
+        <h4>夜车出发 <span class="tag warn">多云转小雨 23–32℃</span></h4>
+        <ul class="todo-list"></ul>
+        <div class="todo-add">
+          <input type="text" class="todo-add-input" placeholder="＋ 添加一项，回车保存">
+          <button type="button" class="todo-add-btn">添加</button>
+        </div>
       </div>
 
-      <div class="tl-time"><div class="tl-date">9/26</div><div class="tl-dow">周六 · 博物馆 + 古城日</div></div>
+      <div class="tl-time"><div class="tl-date">9/26</div><div class="tl-dow">周六 · 方特日</div></div>
       <div class="tl-rail"><span class="tl-dot rain"></span></div>
-      <div class="tl-card">
-        <h4>博物馆 + 古城 <span class="tag rain">中雨 22–27℃</span></h4>
-        <ul>
-          <li><b>08:14</b> 到芜湖站 → 早餐（渣肉蒸饭、锅贴）→ 行李先寄车站柜（晚上入住后再取）</li>
-          <li><b>09:30–11:30</b> 芜湖市博物馆（免费 · 需官方预约）：三层通商史 + 人字洞文物，雨天室内首选</li>
-          <li><b>12:00</b> 午餐：凤凰美食街（四季春小笼汤包 / 耿福兴虾籽面）</li>
-          <li><b>13:30–16:30</b> 芜湖古城（雨天友好）：长虹门（南门）进 → 大成殿 → 花街 → 南正街 → 县衙谯楼（联票 50 元可选）——廊檐躲雨、青石板防滑</li>
-          <li><b>16:30</b> 入住宜盟酒店（步行街店，105.6 元）→ 晚餐（红皮鸭子、臭鳜鱼、赤豆酒酿）</li>
-          <li><b>18:30</b> 若雨停：步行约 5 分钟到滨江公园吹江风；<b>19:30</b> 回古城看灯笼夜景</li>
-        </ul>
+      <div class="tl-card" data-day="d2">
+        <h4>方特 · 东方神画（全天） <span class="tag rain">中雨转小雨 22–27℃</span></h4>
+        <ul class="todo-list"></ul>
         <div class="acc">
           <button type="button" class="acc-btn" aria-expanded="false">
             <span class="acc-no">雨</span>
             <span class="acc-title">雨天预案</span>
-            <span class="acc-desc">26 日本来就是雨天方案</span>
+            <span class="acc-desc">26 日方特以室内项目为主线</span>
             <span class="arrow"></span>
           </button>
           <div class="acc-panel">
-            <p class="body small">26 日全天为雨天方案：博物馆 + 古城廊檐 + 室内展馆 + 美食，中雨不受影响；雨太大就把滨江公园和夜景砍掉，早回酒店休息，把体力留给 27 日方特。</p>
+            <p class="body small">26 日方特以室内项目为主线：女娲补天、牛郎织女、九州神韵、烈焰风云、雷峰塔全在室内，中雨照玩；户外丛林飞龙只看雨停窗口，停不了就放弃；雨具自备，门口兜售的一次性雨衣园内禁用来路货。</p>
           </div>
+        </div>
+        <div class="todo-add">
+          <input type="text" class="todo-add-input" placeholder="＋ 添加一项，回车保存">
+          <button type="button" class="todo-add-btn">添加</button>
         </div>
       </div>
 
-      <div class="tl-time"><div class="tl-date">9/27</div><div class="tl-dow">周日 · 方特日</div></div>
+      <div class="tl-time"><div class="tl-date">9/27</div><div class="tl-dow">周日 · 博物馆 + 古城日</div></div>
       <div class="tl-rail"><span class="tl-dot warn"></span></div>
-      <div class="tl-card">
-        <h4>方特 · 东方神画（全天） <span class="tag warn">小雨 23–30℃</span></h4>
-        <ul>
-          <li><b>08:30</b> 早餐后退房，行李寄宜盟前台（27 号不再住店）</li>
-          <li><b>09:30</b> 地铁 2 号线 / 打车到方特（约 30–37 分钟）；周末 9:30 开园、<b>营业至 21:00</b>（以景区当日公告为准）</li>
-          <li><b>上午 · 室内主打</b>：女娲补天 → 牛郎织女 → 九州神韵，小雨不耽误</li>
-          <li><b>下午 · 雨停加户外</b>：烈焰风云、雷峰塔、孟姜女；停雨时冲木质过山车丛林飞龙</li>
-          <li><b>18:30 出园</b>（已含约 1 小时夜景）→ 打车回宜盟取行李（约 25 分钟）</li>
-          <li><b>20:00 前</b> 到芜湖站候车（预留约 4 小时缓冲）→ <b>00:01</b> K892</li>
-        </ul>
-        <div class="alt-note"><b>本晚住车上</b>：K892 夜车，芜湖 00:01 → 菏泽 08:39，车票已购，睡一觉到家；方特若想玩满到 21:00 闭园，出园打车直奔车站、23:00 前到也来得及，但时间会很紧</div>
+      <div class="tl-card" data-day="d3">
+        <h4>博物馆 + 古城 <span class="tag warn">中雨转小雨 23–30℃</span></h4>
+        <ul class="todo-list"></ul>
+        <div class="alt-note"><b>本晚住车上</b>：K892 夜车，芜湖 00:01 → 菏泽 08:39，车票已购，睡一觉到家；22:00 前到站都从容，别恋战</div>
+        <div class="todo-add">
+          <input type="text" class="todo-add-input" placeholder="＋ 添加一项，回车保存">
+          <button type="button" class="todo-add-btn">添加</button>
+        </div>
       </div>
 
       <div class="tl-time"><div class="tl-date">9/28</div><div class="tl-dow">周一 · 返程</div></div>
       <div class="tl-rail"><span class="tl-dot gold"></span></div>
-      <div class="tl-card">
-        <h4>凌晨返程到家 <span class="tag warn">小雨 22–28℃</span></h4>
-        <ul>
-          <li><b>00:01</b> K892 发车，硬座夜车</li>
-          <li><b>08:39</b> 到菏泽，回家补觉休整</li>
-          <li>全程在车上，天气不影响</li>
-        </ul>
+      <div class="tl-card" data-day="d4">
+        <h4>凌晨返程到家 <span class="tag warn">小雨转阴 23–29℃</span></h4>
+        <ul class="todo-list"></ul>
+        <div class="todo-add">
+          <input type="text" class="todo-add-input" placeholder="＋ 添加一项，回车保存">
+          <button type="button" class="todo-add-btn">添加</button>
+        </div>
       </div>
     </div>
   </section>
@@ -509,7 +531,7 @@
           <tr class="total"><td>合计（两人）</td><td>约 1095–1220 元</td></tr>
         </tbody>
       </table>
-      <p class="budget-note">古城联票 50 元另计（可选）。大交通 253 = 我 191（K891 105 + K892 86）+ 同伴 62。门票按网购 239 / 门市 280 元 × 2 人。住宿 105.6 元已支付（美团：宜盟酒店·步行街店，9/26 入住 9/27 退）。市内交通：地铁为主约 60，27 日晚方特→酒店取行李→车站两段打车约 100。合计低值 253+478+105.6+200+60≈1097，高值 253+560+105.6+200+100≈1219。</p>
+      <p class="budget-note">古城联票 50 元另计（可选）。大交通 253 = 我 191（K891 105 + K892 86）+ 同伴 62。门票按网购 239 / 门市 280 元 × 2 人。住宿 105.6 元已支付（美团：宜盟酒店·步行街店，9/26 入住 9/27 退）。市内交通：26 日方特往返地铁 2 号线（2 元/人·趟）为主，晚上站→宜盟打车约 15–20；27 日博物馆→美食街→古城→宜盟→车站多段短途打车起步价，合计约 60–100。低值 253+478+105.6+200+60≈1097，高值 253+560+105.6+200+100≈1219。</p>
     </div>
   </div>
 
@@ -518,17 +540,17 @@
     <button type="button" class="acc-btn" aria-expanded="false">
       <span class="acc-no">05</span>
       <span class="acc-title">天气预案</span>
-      <span class="acc-desc">9/26 中雨 · 9/27–28 小雨</span>      <span class="arrow"></span>
+      <span class="acc-desc">9/26–27 中雨转小雨 · 雨具全程备</span>      <span class="arrow"></span>
     </button>
     <div class="acc-panel">
       <table>
         <colgroup><col style="width:16%"><col style="width:30%"><col style="width:54%"></colgroup>
         <thead><tr><th>日期</th><th>天气</th><th>方案</th></tr></thead>
         <tbody>
-          <tr><td><b>9/25</b></td><td>多云 23–32℃</td><td>正常出发，夜车带件外套</td></tr>
-          <tr><td><b>9/26</b></td><td>中雨 22–27℃</td><td>博物馆 + 古城廊檐 + 美食，雨天友好；雨太大砍掉滨江公园和夜景</td></tr>
-          <tr><td><b>9/27</b></td><td>小雨 23–30℃</td><td>方特全天：室内为主 + 雨停户外 + 夜场；预报若转大雨，提前出园赶车</td></tr>
-          <tr><td><b>9/28</b></td><td>小雨 22–28℃</td><td>凌晨夜车返程，不受影响</td></tr>
+          <tr><td><b>9/25</b></td><td>多云转小雨 23–32℃</td><td>正常出发，夜车带件外套 + 伞（23 时起有小雨）</td></tr>
+          <tr><td><b>9/26</b></td><td>中雨转小雨 22–27℃</td><td>方特全天：室内项目为主线（女娲补天、牛郎织女、九州神韵、烈焰风云、雷峰塔），户外看雨停窗口</td></tr>
+          <tr><td><b>9/27</b></td><td>中雨转小雨 23–30℃</td><td>博物馆 + 古城廊檐 + 美食，雨天友好；雨太大砍掉滨江公园，20:00 前到站赶车</td></tr>
+          <tr><td><b>9/28</b></td><td>小雨转阴 23–29℃</td><td>凌晨夜车返程，不受影响</td></tr>
         </tbody>
       </table>
       <p class="budget-note">预报随时变，出发前 1 天再核对一次墨迹 / 中央气象台。</p>
@@ -565,7 +587,7 @@
           <h5>打包清单</h5>
           <ul>
             <li>身份证、车票 / 方特门票<b>电子截图</b></li>
-            <li>雨伞 / 一次性雨衣（26 日中雨）</li>
+            <li>雨伞 / 雨衣（26–27 两天都有雨）</li>
             <li>外套（夜车空调冷）、换洗衣物</li>
             <li>充电宝、常用药</li>
           </ul>
@@ -672,96 +694,96 @@
 <section id="view-guide" class="view gview">
   <div class="g-top">
     <button type="button" class="g-back" id="gBack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> 返回主页</button>
-    <span class="g-kicker">全新攻略 · 飞书在线版内容</span>
+    <span class="g-kicker">全新攻略 · 页内版</span>
   </div>
   <h1 class="serif g-title">芜湖 9/25–28 双人周末路书</h1>
   <p class="g-sub">夜车往返 · 方特东方神画 · 雨天玩法 · 两人合计约 1095–1220 元</p>
 
   <div class="tip tip-blue">
-    <b>先给结论：</b>9/25 周五夜车 K891 出发，9/26 中雨天玩「博物馆 + 古城 + 美食」，9/27 小雨天把整天留给方特东方神画，当晚 K892 夜车返程，9/28 早上到菏泽。车票、酒店已订好，只剩方特门票和两三个小决策。
+    <b>先给结论：</b>9/25 周五夜车 K891 出发，9/26 周六把整天留给方特东方神画（中雨转小雨，室内项目为主），当晚入住宜盟；9/27 周日中雨转小雨玩「博物馆 + 古城 + 美食」，当晚 K892 夜车返程，9/28 早上到菏泽。车票、酒店已订好，只剩方特门票和两三个小决策。
     <br/><b>住哪：</b>宜盟酒店（步行街店），长江中路吉园小区 1 号商铺，双人间 105.6 元/晚，已支付，离古城、滨江公园步行可达。
-    <br/><b>最大风险：</b>9/27 小雨 + 当晚 00:01 夜车，方特出园时间要卡住（18:30 撤稳妥，玩到 21:00 夜场也来得及但别贪最后一刻）。
+    <br/><b>最大风险：</b>9/26 方特全天中雨转小雨，户外项目（丛林飞龙）大概率停开，核心室内项目不受影响；9/27 晚 00:01 夜车，20:00 前到站候车，别恋战。
   </div>
 
-  <h2 class="serif">方特选哪天：主案 27 日，想 26 日也行</h2>
-  <p>两天都开放（9/26 周六、9/27 周日），差别在天气和营业节奏，放一起对比再决定。</p>
+  <h2 class="serif">方特选哪天：已定 26 日，27 日让位给博物馆 + 古城</h2>
+  <p>9/26（周六）与 9/27（周日）都开放，已拍板 26 日去方特——好处是当晚住酒店不赶车，夜场可以玩满 21:00；27 日中雨转小雨玩博物馆和古城本就是雨天友好方案。</p>
   <table>
-    <thead><tr><th>对比项</th><th>9/26（周六）</th><th>9/27（周日）</th></tr></thead>
+    <thead><tr><th>对比项</th><th>9/26（周六）· 已定方特</th><th>9/27（周日）· 已定博物馆+古城</th></tr></thead>
     <tbody>
-      <tr><td>天气</td><td>中雨 22–27℃</td><td>小雨 23–30℃（更稳）</td></tr>
-      <tr><td>开园</td><td>9:30 开园，日场至 17:30（实查）</td><td>9:30 开园，日场至 17:30（实查）</td></tr>
-      <tr><td>夜场</td><td>周末常加开夜场至 21:00，以官方公告为准</td><td>同左；当晚要赶 00:01 夜车，夜场可玩但出园要果断</td></tr>
-      <tr><td>户外项目</td><td>中雨大概率不开（丛林飞龙等）</td><td>小雨有停雨窗口，户外项目机会更大</td></tr>
-      <tr><td>另一天怎么排</td><td>27 日小雨逛古城（廊檐+展馆，能玩）</td><td>26 日中雨玩博物馆+古城（本就雨天友好）</td></tr>
+      <tr><td>天气</td><td>中雨转小雨 22–27℃</td><td>中雨转小雨 23–30℃</td></tr>
+      <tr><td>开园</td><td>9:30 开园，日场至 17:30（实查）</td><td>市博物馆 09:30 开放（免费预约）</td></tr>
+      <tr><td>夜场</td><td>周末常加开夜场至 21:00；当晚住酒店不赶车，可玩满</td><td>不涉及；20:00 前到站赶 00:01 夜车</td></tr>
+      <tr><td>户外项目</td><td>中雨大概率不开（丛林飞龙等），雨停窗口可冲</td><td>古城廊檐 + 展馆，雨天友好</td></tr>
+      <tr><td>当晚落脚</td><td>宜盟酒店（步行街店）</td><td>K892 夜车（00:01 发）</td></tr>
     </tbody>
   </table>
   <div class="tip-grid">
-    <div class="tip tip-green"><b>主案：方特放 27 日。</b>天气更稳、户外项目机会更多，26 日中雨玩博物馆和古城完全不亏，两条线都顺路。</div>
-    <div class="tip tip-yellow"><b>若坚持 26 日去方特：</b>完全可行，东方神画核心项目（女娲补天、牛郎织女、九州神韵、烈焰风云、雷峰塔）都在室内；代价是丛林飞龙等户外项目大概率停开、夜场体验打折。</div>
+    <div class="tip tip-green"><b>已定方案：26 日方特、27 日博物馆+古城。</b>方特核心项目（女娲补天、牛郎织女、九州神韵、烈焰风云、雷峰塔）全在室内，中雨照玩；周六夜场不赶车，玩到 21:00 出园回酒店都从容。</div>
+    <div class="tip tip-yellow"><b>26 日方特的代价：</b>丛林飞龙等户外项目大概率停开；夜场若当天未开，18:30 出园直接回酒店，早休息。</div>
   </div>
 
-  <h2 class="serif">两天怎么走：26 日雨天线 + 27 日方特线</h2>
-  <p>主线逻辑：26 日中雨，芜湖博物馆在室内、古城有廊檐和展馆，把这一天做成「雨天不心疼」的组合；27 日小雨且要赶夜车，整天待在方特，出园后直接取行李进站，不用跨区赶场。</p>
+  <h2 class="serif">两天怎么走：26 日方特线 + 27 日博物馆 + 古城线</h2>
+  <p>主线逻辑：26 日把精力最好的第一天给方特，晚上住宜盟、夜场可尽兴；27 日退房后博物馆（室内）+ 古城（廊檐展馆）都是雨天友好项目，傍晚取行李直接进站赶夜车，不跨区赶场。</p>
   <table>
     <thead><tr><th>日期</th><th>主区域</th><th>核心安排</th><th>落脚</th><th>预订风险</th></tr></thead>
     <tbody>
       <tr><td>9/25 周五</td><td>聊城—芜湖（夜车）</td><td>22:25 K891 发车</td><td>车上</td><td>已购票</td></tr>
-      <tr><td>9/26 周六</td><td>芜湖东（博物馆）→ 城西（古城/步行街）</td><td>市博物馆（免费）→ 凤凰美食街午餐 → 芜湖古城 → 入住宜盟</td><td>宜盟酒店</td><td>博物馆需官方预约；联票 50 可选</td></tr>
-      <tr><td>9/27 周日</td><td>方特（城东）</td><td>方特东方神画全天 → 取行李 → 芜湖站</td><td>车上</td><td>方特门票提前网购；夜场以公告为准</td></tr>
+      <tr><td>9/26 周六</td><td>方特（城东）</td><td>方特东方神画全天 → 回芜湖站取行李 → 入住宜盟</td><td>宜盟酒店</td><td>方特门票提前网购；夜场以公告为准</td></tr>
+      <tr><td>9/27 周日</td><td>芜湖东（博物馆）→ 城西（古城/步行街）</td><td>市博物馆（免费）→ 凤凰美食街午餐 → 芜湖古城 → 取行李 → 芜湖站</td><td>车上</td><td>博物馆需官方预约；联票 50 可选</td></tr>
       <tr><td>9/28 周一</td><td>返程</td><td>00:01 K892 → 08:39 到菏泽</td><td>—</td><td>已购票</td></tr>
     </tbody>
   </table>
 
-  <h2 class="serif">Day 1 · 9/26（周六 · 中雨）：博物馆 → 古城 → 美食</h2>
-  <p>今天主题是「雨天也玩得舒服」：上午室内博物馆，下午廊檐下的古城，晚上住进宜盟后步行去吃、去江边吹风。全程在城西收尾，不走回头路。</p>
+  <h2 class="serif">Day 1 · 9/26（周六 · 中雨转小雨）：方特东方神画全天 → 入住宜盟</h2>
+  <p>今天只做一件事：把方特玩透。9:30 开园就去，室内大项目为主线；当晚住酒店不赶车，若周六夜场开放（周末常加开至 21:00，以方特 App / 官方公告为准），玩满 21:00 闭园出园、地铁回站取行李、打车到宜盟，22:30 前到店都从容。</p>
   <table>
     <thead><tr><th>时间</th><th>安排</th><th>交通 / 步行</th><th>费用 / 预约</th></tr></thead>
     <tbody>
-      <tr><td>08:14</td><td>到芜湖站，早餐（渣肉蒸饭、锅贴），行李先存车站寄存柜（晚上入住再取）</td><td>出站即早餐摊</td><td>寄存约 10–20 元/件（估算）</td></tr>
-      <tr><td>09:30–11:30</td><td>芜湖市博物馆：三层通商史 + 人字洞文物，免费室内</td><td>离车站约 3.5km，打车约 10 分钟</td><td>免费；需官方预约（微信搜「芜湖市博物馆」）</td></tr>
-      <tr><td>12:00</td><td>凤凰美食街午餐：耿福兴虾籽面 / 四季春小笼汤包</td><td>博物馆打车约 15 分钟</td><td>人均 15–30 元（参考）</td></tr>
-      <tr><td>13:30–16:30</td><td>芜湖古城：长虹门（南门）进 → 大成殿 → 花街 → 南正街 → 县衙谯楼（联票 50 可选）</td><td>美食街步行约 15 分钟</td><td>古城免费；联票可选</td></tr>
-      <tr><td>16:30</td><td>入住宜盟酒店（步行街店）</td><td>古城步行约 15 分钟</td><td>105.6 元已支付</td></tr>
-      <tr><td>17:00–19:00</td><td>晚餐：红皮鸭子、臭鳜鱼、赤豆酒酿；雨停则步行约 5 分钟去滨江公园看江（中江塔 + 老海关钟楼）</td><td>酒店周边步行</td><td>晚餐两人约 80–120 元（估算）</td></tr>
-      <tr><td>19:30</td><td>若雨停：回古城看灯笼夜景，21:00 前回酒店</td><td>步行</td><td>—</td></tr>
+      <tr><td>08:14</td><td>到芜湖站，早餐（渣肉蒸饭、锅贴），行李先存车站寄存柜（晚上取回再入住）</td><td>出站即早餐摊</td><td>寄存约 10–20 元/件（估算）</td></tr>
+      <tr><td>09:30</td><td>到方特，9:30 开园即入园（先看方特 App 排队时长）</td><td>地铁 2 号线直达方特·徽州路站，约 37 分钟 2 元；打车约 25 分钟 30–40 元</td><td>地铁 2 元/人；打车 30–40 元（估算）</td></tr>
+      <tr><td>10:00–12:30</td><td>室内主打：女娲补天 → 牛郎织女 → 九州神韵（4D 大项目，中雨不耽误）</td><td>园内步行</td><td>已含门票</td></tr>
+      <tr><td>12:30–13:30</td><td>园内午餐（自带水和小食省钱，园内餐饮贵）</td><td>—</td><td>两人约 40–80 元（估算）</td></tr>
+      <tr><td>13:30–17:30</td><td>下午：烈焰风云、雷峰塔、孟姜女；雨停窗口冲木质过山车丛林飞龙</td><td>园内步行</td><td>已含门票</td></tr>
+      <tr><td>18:30</td><td>出园（夜场若开且想玩，可玩到 21:00——今晚住酒店不赶车）</td><td>地铁 2 号线回芜湖站约 37 分钟 2 元</td><td>地铁 2 元/人</td></tr>
+      <tr><td>20:00–21:00</td><td>芜湖站取行李 → 打车到宜盟入住（约 15–20 元）→ 步行街晚餐（红皮鸭子、臭鳜鱼、赤豆酒酿）</td><td>打车约 15 分钟</td><td>打车 15–20 元（估算）；晚餐两人约 80–120 元（估算）</td></tr>
     </tbody>
   </table>
   <div class="tip-grid">
-    <div class="tip tip-green"><b>今日高光：</b>古城廊檐下的青石板、大成殿和县衙谯楼，雨天反而更有味道；滨江公园是白捡的行程，酒店步行 5 分钟。</div>
-    <div class="tip tip-yellow"><b>可删减项：</b>雨太大 → 砍滨江公园和夜景，早回酒店休息；联票 50 元买不买取决于要不要进县衙谯楼内部。</div>
+    <div class="tip tip-green"><b>今日高光：</b>上午 4D 大项目连刷，下午挑一个户外过山车（看雨停窗口）；若赶上周六夜场，灯光下的园区是加分项，且不用赶车。</div>
+    <div class="tip tip-yellow"><b>现场删减：</b>排队超 45 分钟的项目先跳过、最后补；中雨转小雨天气，户外项目随缘，室内四件套刷完就值回票价。</div>
   </div>
 
-  <h2 class="serif">Day 2 · 9/27（周日 · 小雨）：方特东方神画全天 → 夜车返程</h2>
-  <p>今天只做一件事：把方特玩透。9:30 开园就去，18:30 撤最稳妥；若当天确认有夜场（周末常加开至 21:00，以方特 App / 官方公告为准）且想玩，最晚 21:00 闭园立即出园，22:00 前后到站，留 2 小时缓冲也来得及。</p>
+  <h2 class="serif">Day 2 · 9/27（周日 · 中雨转小雨）：博物馆 → 古城 → 美食 → 夜车返程</h2>
+  <p>今天主题是「雨天也玩得舒服」：上午室内博物馆，下午廊檐下的古城，傍晚回宜盟取行李、吃饭，20:00 前到站候车。全程在城西收尾，不走回头路。</p>
   <table>
     <thead><tr><th>时间</th><th>安排</th><th>交通 / 步行</th><th>费用 / 预约</th></tr></thead>
     <tbody>
-      <tr><td>08:30</td><td>早餐后退房，行李寄宜盟前台（27 号不再住店）</td><td>—</td><td>—</td></tr>
-      <tr><td>09:30</td><td>到方特，9:30 开园即入园（先看方特 App 排队时长）</td><td>单轨 2 号线（步行街打车到环城北路站起步价 + 约 30 分钟）/ 打车约 25 分钟 30–40 元</td><td>地铁约 2 元/人；打车 30–40 元（估算）</td></tr>
-      <tr><td>10:00–12:30</td><td>室内主打：女娲补天 → 牛郎织女 → 九州神韵（4D 大项目，小雨不耽误）</td><td>园内步行</td><td>已含门票</td></tr>
-      <tr><td>12:30–13:30</td><td>园内午餐（自带水和小食省钱，园内餐饮贵）</td><td>—</td><td>两人约 40–80 元（估算）</td></tr>
-      <tr><td>13:30–17:30</td><td>下午：烈焰风云、雷峰塔、孟姜女；停雨窗口冲木质过山车丛林飞龙</td><td>园内步行</td><td>已含门票</td></tr>
-      <tr><td>18:30</td><td>出园（夜场若开，可延到 19:30–20:00）</td><td>打车回宜盟取行李约 25 分钟</td><td>打车 30–40 元（估算）</td></tr>
-      <tr><td>20:00 前</td><td>到芜湖站候车（预留 4 小时缓冲）；夜场玩满 21:00 出园则 22:00 前后到站</td><td>宜盟打车/地铁到站约 20 分钟</td><td>打车约 15–20 元（估算）</td></tr>
+      <tr><td>08:30</td><td>早餐后退房，行李寄宜盟前台（27 号不再住店，晚上取走去车站）</td><td>—</td><td>—</td></tr>
+      <tr><td>09:30–11:30</td><td>芜湖市博物馆：三层通商史 + 人字洞文物，免费室内</td><td>宜盟打车约 10 分钟</td><td>免费；需官方预约（微信搜「芜湖市博物馆」）</td></tr>
+      <tr><td>12:00</td><td>凤凰美食街午餐：耿福兴虾籽面 / 四季春小笼汤包</td><td>博物馆打车约 15 分钟</td><td>人均 15–30 元（参考）</td></tr>
+      <tr><td>13:30–16:30</td><td>芜湖古城：长虹门（南门）进 → 大成殿 → 花街 → 南正街 → 县衙谯楼（联票 50 可选）</td><td>美食街步行约 15 分钟</td><td>古城免费；联票可选</td></tr>
+      <tr><td>16:30</td><td>回宜盟取行李 → 晚餐（红皮鸭子、臭鳜鱼、赤豆酒酿）</td><td>古城步行约 15 分钟</td><td>晚餐两人约 80–120 元（估算）</td></tr>
+      <tr><td>17:30</td><td>雨停则步行约 5 分钟去滨江公园看江（中江塔 + 老海关钟楼）</td><td>酒店周边步行</td><td>—</td></tr>
+      <tr><td>19:30–20:00</td><td>到芜湖站候车（预留约 4 小时缓冲，22:00 前到站都从容）</td><td>宜盟打车/地铁到站约 20 分钟</td><td>打车约 15–20 元（估算）</td></tr>
       <tr><td>00:01</td><td>K892 发车，硬座夜车</td><td>—</td><td>已购票</td></tr>
     </tbody>
   </table>
   <div class="tip-grid">
-    <div class="tip tip-green"><b>今日高光：</b>上午 4D 大项目连刷，下午挑一个户外过山车；若赶上夜场，灯光下的园区是加分项。</div>
-    <div class="tip tip-yellow"><b>现场删减：</b>排队超 45 分钟的项目先跳过、最后补；体力不够就放弃一个户外项目，赶车优先于刷项目。</div>
+    <div class="tip tip-green"><b>今日高光：</b>古城廊檐下的青石板、大成殿和县衙谯楼，雨天反而更有味道；滨江公园是白捡的行程，酒店步行 5 分钟。</div>
+    <div class="tip tip-yellow"><b>可删减项：</b>雨太大 → 砍滨江公园，早去车站；联票 50 元买不买取决于要不要进县衙谯楼内部。</div>
   </div>
-  <blockquote>衔接公式：方特 21:00 闭园 → 打车回宜盟取行李 25 分钟 → 宜盟到站 20 分钟 → 22:00 前后到站 → 00:01 发车，全程留约 2 小时缓冲；走 18:30 方案则缓冲 4 小时，更从容。</blockquote>
+  <blockquote>衔接公式：古城 16:30 结束 → 回宜盟取行李 15 分钟 → 晚餐 → 19:30–20:00 到站 → 00:01 发车，全程约 4 小时缓冲，从容；22:00 前到站即可，别恋战。</blockquote>
 
   <h2 class="serif">住宜盟、从车站怎么走：住宿与市内交通</h2>
   <p>住宿已定：宜盟酒店（步行街店），镜湖区长江中路吉园小区 1 号商铺，悬浮双人间（双床·40–45㎡），105.6 元/晚，9/26 入住 9/27 退，26 日 18:00 前可免费取消。位置在古城与滨江公园之间，晚上吃饭、散步都在步行范围。</p>
   <table>
     <thead><tr><th>路段</th><th>推荐方式</th><th>时间</th><th>费用</th><th>注意</th></tr></thead>
     <tbody>
-      <tr><td>芜湖站 → 博物馆</td><td>打车</td><td>约 10 分钟</td><td>约 10–15 元</td><td>行李先存车站，轻装逛</td></tr>
-      <tr><td>博物馆 → 凤凰美食街</td><td>打车</td><td>约 15 分钟</td><td>约 15–20 元</td><td>—</td></tr>
+      <tr><td>芜湖站 → 方特（26 日）</td><td>地铁 2 号线直达</td><td>约 37 分钟</td><td>2 元/人</td><td>行李先存车站，轻装玩</td></tr>
+      <tr><td>方特 → 芜湖站 → 宜盟（26 日晚）</td><td>地铁 2 号线 + 打车</td><td>约 40+15 分钟</td><td>2 元/人 + 15–20 元</td><td>夜场玩满 21:00 出园，22:30 前到店</td></tr>
+      <tr><td>宜盟 → 博物馆 → 美食街（27 日）</td><td>打车</td><td>各约 10–15 分钟</td><td>约 10–20 元/段</td><td>博物馆需预约</td></tr>
       <tr><td>美食街 → 古城 → 宜盟</td><td>步行</td><td>各约 15 分钟</td><td>免费</td><td>青石板雨天防滑</td></tr>
-      <tr><td>宜盟 → 方特</td><td>打车 / 单轨 2 号线</td><td>约 25 分钟 / 约 40 分钟</td><td>30–40 元 / 2 元/人</td><td>经济优先选地铁，赶时间打车</td></tr>
-      <tr><td>宜盟 → 芜湖站</td><td>打车 / 地铁</td><td>约 20 分钟</td><td>15–20 元 / 2 元/人</td><td>27 日晚赶夜车，宁早勿晚</td></tr>
+      <tr><td>宜盟 → 芜湖站（27 日晚）</td><td>打车 / 地铁</td><td>约 20 分钟</td><td>15–20 元 / 2 元/人</td><td>赶 00:01 夜车，20:00 前到站更稳</td></tr>
     </tbody>
   </table>
 
@@ -779,7 +801,7 @@
       <tr><td>方特门票 ×2</td><td>478–560 元</td><td>实查：OTA/门市 280；参考：直播间预售 239</td></tr>
       <tr><td>住宿 1 晚</td><td>105.6 元</td><td>实查（已支付）</td></tr>
       <tr><td>餐饮 3 天</td><td>约 200 元</td><td>估算</td></tr>
-      <tr><td>市内交通</td><td>约 60–100 元</td><td>估算（地铁为主，27 日晚两段打车）</td></tr>
+      <tr><td>市内交通</td><td>约 60–100 元</td><td>估算（26 日方特往返地铁 2 号线为主，晚上站→宜盟打车；27 日多段短途打车）</td></tr>
       <tr><td>合计</td><td><b>约 1095–1220 元</b></td><td>低值 253+478+105.6+200+60；高值 253+560+105.6+200+100</td></tr>
     </tbody>
   </table>
@@ -802,9 +824,9 @@
 
   <h2 class="serif">出发前复查清单</h2>
   <div class="chk">
-    <label><input type="checkbox"> 方特门票：提前 1–2 天线上买（方特旅游 App / 直播间 239 / OTA 280），下单前确认 9/27 可入园、退改规则</label>
-    <label><input type="checkbox"> 芜湖市博物馆：微信搜索官方公众号「芜湖市博物馆」预约 9/26（周六）免费票，截图预约码</label>
-    <label><input type="checkbox"> 9/27 方特夜场：当天在方特 App / 官方公告确认是否开夜场，决定 18:30 撤还是玩到 21:00</label>
+    <label><input type="checkbox"> 方特门票：提前 1–2 天线上买（方特旅游 App / 直播间 239 / OTA 280），下单前确认 9/26（周六）可入园、退改规则</label>
+    <label><input type="checkbox"> 芜湖市博物馆：微信搜索官方公众号「芜湖市博物馆」预约 9/27（周日）免费票，截图预约码</label>
+    <label><input type="checkbox"> 9/26 方特夜场：当天在方特 App / 官方公告确认是否开夜场，决定 18:30 撤还是玩到 21:00（当晚住酒店不赶车）</label>
     <label><input type="checkbox"> 天气：出发前 48 小时核对 9/26–27 芜湖天气预报，按中雨/小雨带好雨具</label>
     <label><input type="checkbox"> 车票与证件：K891 / K892 订单、身份证、充电宝、外套（夜车空调冷）</label>
     <label><input type="checkbox"> 住宿：宜盟酒店订单（美团已支付），确认 26 日 18:00 前可免费取消的政策不需要动</label>
@@ -831,7 +853,7 @@
     <div class="decide-card" style="border-color:#C4DAD0;box-shadow:0 2px 0 rgba(31,90,82,.12);">
       <div class="decide-head">方特选园（已定） <span class="flag" style="background:var(--teal-soft);color:var(--teal-dark);">已定</span></div>
       <div class="decide-opts"><b>东方神画</b>（国风 · 室内项目多，雨天友好）</div>
-      <div class="decide-rec">9/27 全天：小雨 + 营业至 21:00 有夜场；室内主打（女娲补天、牛郎织女、九州神韵），雨停冲丛林飞龙</div>
+      <div class="decide-rec">9/26（周六）全天：中雨转小雨，室内项目为主（女娲补天、牛郎织女、九州神韵、烈焰风云、雷峰塔），雨停冲丛林飞龙；当晚住宜盟不赶车，周六夜场可玩到 21:00</div>
     </div>
   </div>
 
@@ -839,7 +861,7 @@
   <table>
     <thead><tr><th>待定项</th><th>选项</th><th>建议</th></tr></thead>
     <tbody>
-      <tr><td>方特夜场去不去</td><td>18:30 撤（稳） / 玩到 21:00（赶车但来得及）</td><td>当天看天气和排队再定，别提前纠结</td></tr>
+      <tr><td>方特夜场去不去</td><td>18:30 撤（稳） / 玩到 21:00（当晚住酒店不赶车，可尽兴）</td><td>当天看天气和排队再定，别提前纠结</td></tr>
       <tr><td>古城联票 50 元</td><td>买 / 不买</td><td>想进县衙谯楼内部就买，只在门口拍照就不买</td></tr>
       <tr><td>方特门票渠道</td><td>直播间 239 / OTA 280</td><td>提前 1–2 天下单，差价 41 元/人</td></tr>
     </tbody>
@@ -847,9 +869,9 @@
 
   <h2 class="serif">出发前复查</h2>
   <div class="chk">
-    <label><input type="checkbox"> 方特门票提前 1–2 天网购，确认 9/27 可入园</label>
-    <label><input type="checkbox"> 市博物馆官方公众号预约 9/26 免费票</label>
-    <label><input type="checkbox"> 9/27 当天确认方特夜场是否开放</label>
+    <label><input type="checkbox"> 方特门票提前 1–2 天网购，确认 9/26 可入园</label>
+    <label><input type="checkbox"> 市博物馆官方公众号预约 9/27 免费票</label>
+    <label><input type="checkbox"> 9/26 当天确认方特夜场是否开放</label>
     <label><input type="checkbox"> 48 小时前核对芜湖天气，带好雨具</label>
   </div>
 
@@ -895,6 +917,146 @@
   }
   window.addEventListener('hashchange',fromHash);
   fromHash();
+})();
+(function(){
+  var KEY='wuhu_todo_v1';
+  var DAYS=['d1','d2','d3','d4'];
+  var DEFAULT={
+    d1:[
+      {t:'白天照常，21:30 前到聊城站候车（今晚 23 时起有小雨，带伞）',done:false},
+      {t:'22:25 K891 发车，硬座夜车——带件外套（车上空调冷）',done:false},
+      {t:'上车前和伙伴对一遍明后天安排',done:false}
+    ],
+    d2:[
+      {t:'08:14 到芜湖站 → 早餐（渣肉蒸饭、锅贴）→ 行李先寄车站柜（晚上取回再入住）',done:false},
+      {t:'09:30 地铁 2 号线直达方特·徽州路站（约 37 分钟 / 2 元）；周末 9:30 开园、营业至 21:00',done:false},
+      {t:'上午 · 室内主打：女娲补天 → 牛郎织女 → 九州神韵，中雨不耽误',done:false},
+      {t:'下午 · 雨停加户外：烈焰风云、雷峰塔、孟姜女；雨停窗口冲丛林飞龙',done:false},
+      {t:'18:30 出园（或周六夜场玩到 21:00——今晚住酒店不赶车，可尽兴）',done:false},
+      {t:'出园 → 地铁 2 号线回芜湖站取行李 → 打车到宜盟入住 → 步行街晚餐',done:false}
+    ],
+    d3:[
+      {t:'08:30 早餐后退房，行李寄宜盟前台（27 号不再住店）',done:false},
+      {t:'09:30–11:30 芜湖市博物馆（免费 · 需官方预约）',done:false},
+      {t:'12:00 午餐：凤凰美食街（四季春小笼汤包 / 耿福兴虾籽面）',done:false},
+      {t:'13:30–16:30 芜湖古城：长虹门 → 大成殿 → 花街 → 南正街 → 县衙谯楼（联票 50 可选）',done:false},
+      {t:'16:30 回宜盟取行李 → 晚餐（红皮鸭子、臭鳜鱼、赤豆酒酿）',done:false},
+      {t:'17:30 雨停则去滨江公园吹江风（酒店步行约 5 分钟）',done:false},
+      {t:'19:30–20:00 到芜湖站候车 → 00:01 K892',done:false}
+    ],
+    d4:[
+      {t:'00:01 K892 发车，硬座夜车',done:false},
+      {t:'08:39 到菏泽，回家补觉休整',done:false},
+      {t:'全程在车上，天气不影响',done:false}
+    ]
+  };
+  function load(){
+    try{
+      var raw=localStorage.getItem(KEY);
+      if(raw){
+        var d=JSON.parse(raw);
+        if(d&&DAYS.every(function(k){return Array.isArray(d[k]);})){
+          return d;
+        }
+      }
+    }catch(e){}
+    return JSON.parse(JSON.stringify(DEFAULT));
+  }
+  var state=load();
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function render(){
+    DAYS.forEach(function(day){
+      var ul=document.querySelector('.tl-card[data-day="'+day+'"] .todo-list');
+      if(!ul)return;
+      ul.innerHTML='';
+      state[day].forEach(function(item,idx){
+        var li=document.createElement('li');
+        li.className='todo-item'+(item.done?' done':'');
+        li.dataset.idx=idx;
+        var cb=document.createElement('input');
+        cb.type='checkbox';cb.className='todo-check';cb.checked=item.done;
+        var tx=document.createElement('span');
+        tx.className='todo-text';tx.textContent=item.t;tx.contentEditable='plaintext-only';
+        var del=document.createElement('button');
+        del.type='button';del.className='todo-del';del.textContent='×';
+        del.title='删除该项';
+        li.appendChild(cb);li.appendChild(tx);li.appendChild(del);
+        ul.appendChild(li);
+      });
+    });
+    updateProgress();
+  }
+  function updateProgress(){
+    var total=0,done=0;
+    DAYS.forEach(function(day){
+      total+=state[day].length;
+      state[day].forEach(function(it){if(it.done)done++;});
+    });
+    var el=document.getElementById('todoProgress');
+    if(el)el.textContent='待办 '+(total-done)+' / '+total+' 项';
+  }
+  function addItem(day,input){
+    if(!input||!input.value.trim())return;
+    state[day].push({t:input.value.trim(),done:false});
+    input.value='';
+    save();render();
+  }
+  function bind(){
+    var tl=document.querySelector('.timeline');
+    if(!tl)return;
+    tl.addEventListener('click',function(e){
+      var target=e.target;
+      if(target.classList.contains('todo-check')){
+        var li=target.closest('.todo-item');if(!li)return;
+        var day=li.closest('[data-day]').getAttribute('data-day');
+        state[day][+li.dataset.idx].done=target.checked;
+        li.classList.toggle('done',target.checked);
+        save();updateProgress();
+      }else if(target.classList.contains('todo-del')){
+        var li2=target.closest('.todo-item');if(!li2)return;
+        var day2=li2.closest('[data-day]').getAttribute('data-day');
+        state[day2].splice(+li2.dataset.idx,1);
+        save();render();
+      }else if(target.classList.contains('todo-add-btn')){
+        var box=target.closest('.todo-add');
+        var day3=box.closest('[data-day]').getAttribute('data-day');
+        addItem(day3,box.querySelector('input'));
+      }
+    });
+    tl.addEventListener('keydown',function(e){
+      if(e.key==='Enter'&&e.target.classList.contains('todo-add-input')){
+        e.preventDefault();
+        var box=e.target.closest('.todo-add');
+        addItem(box.closest('[data-day]').getAttribute('data-day'),e.target);
+      }else if(e.key==='Enter'&&e.target.classList.contains('todo-text')){
+        e.preventDefault();e.target.blur();
+      }
+    });
+    tl.addEventListener('blur',function(e){
+      if(e.target.classList.contains('todo-text')){
+        var li=e.target.closest('.todo-item');if(!li)return;
+        var day=li.closest('[data-day]').getAttribute('data-day');
+        var txt=e.target.textContent.trim();
+        if(txt){
+          state[day][+li.dataset.idx].t=txt;
+          e.target.textContent=txt;
+        }else{
+          state[day].splice(+li.dataset.idx,1);
+          save();render();return;
+        }
+        save();
+      }
+    },true);
+    var reset=document.getElementById('todoReset');
+    if(reset){
+      reset.addEventListener('click',function(){
+        try{localStorage.removeItem(KEY);}catch(e){}
+        state=JSON.parse(JSON.stringify(DEFAULT));
+        save();render();
+      });
+    }
+  }
+  render();bind();
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
